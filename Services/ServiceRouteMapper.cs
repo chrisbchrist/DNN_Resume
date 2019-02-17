@@ -20,7 +20,6 @@ namespace DnnFree.Modules.SPA.React.Services
                 moduleFolderName: "DnnFree.Modules.SPA.React",
                 routeName: "default",
                 url: "{controller}/{itemId}",
-                defaults: new { itemId = RouteParameter.Optional },
                 namespaces: new[] { "DnnFree.Modules.SPA.React.Services" });
         }
     }
