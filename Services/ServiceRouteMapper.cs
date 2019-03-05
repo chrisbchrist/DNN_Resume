@@ -17,9 +17,9 @@ namespace DnnFree.Modules.SPA.React.Services
         public void RegisterRoutes(IMapRoute mapRouteManager)
         {
             mapRouteManager.MapHttpRoute(
-                moduleFolderName: "DnnFree.Modules.SPA.React",
+                moduleFolderName: "ResumeBuilder",
                 routeName: "default",
-                url: "{controller}/{itemId}",
+                url: "{controller}/{action}",
                 namespaces: new[] { "DnnFree.Modules.SPA.React.Services" });
         }
     }

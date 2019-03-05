@@ -1,10 +1,14 @@
-const path = require('path');
+const path = require("path");
 
 module.exports = {
-  entry: './src/index.js',
+  entry: "./src/index.js",
   output: {
-    path: path.join(__dirname, '/dist'),
-    filename: 'dnnfree_spa_react_bundle.js'
+    path: path.join(__dirname, "/bundle"),
+    filename: "dnnfree_spa_react_bundle.js"
+  },
+  devServer: {
+    watchContentBase: true,
+    publicPath: "/bundle/"
   },
   module: {
     rules: [
@@ -12,22 +16,22 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader'
+          loader: "babel-loader"
         }
       },
       {
         test: /\.css$/,
-        use: [ 'css-loader' ]
+        use: ["css-loader"]
       },
       {
         test: /\.(png|jpg|gif)$/,
         use: [
           {
-            loader: 'file-loader',
-            options: {}  
+            loader: "file-loader",
+            options: {}
           }
         ]
       }
     ]
   }
-}
+};

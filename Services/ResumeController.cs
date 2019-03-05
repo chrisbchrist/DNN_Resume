@@ -31,7 +31,7 @@ namespace DnnFree.Modules.SPA.React.Services
 
         [AllowAnonymous]
         [HttpGet]
-        public HttpResponseMessage Test(string uid)
+        public HttpResponseMessage Stream(string uid)
         {
             var filePath = $@"{PortalSettings.HomeDirectoryMapPath}PDF\{uid}.pdf";
             var dataBytes = File.ReadAllBytes(filePath);
@@ -61,7 +61,7 @@ namespace DnnFree.Modules.SPA.React.Services
 
             if (success)
             {
-                return Request.CreateResponse(HttpStatusCode.OK, $@"https://portal.virtualcareersystem.com/DesktopModules/SPA_Template/API/Resume/Test?uid={uid}");
+                return Request.CreateResponse(HttpStatusCode.OK, $@"https://portal.virtualcareersystem.com/DesktopModules/ResumeBuilder/API/Resume/Stream?uid={uid}");
             }
 
             return Request.CreateResponse(HttpStatusCode.Ambiguous, $@"File save failure");
@@ -69,23 +69,39 @@ namespace DnnFree.Modules.SPA.React.Services
 
         [AllowAnonymous]
         [HttpPost]
-        public HttpResponseMessage Stream([FromBody]Resume res)
+        public HttpResponseMessage Email([FromBody]Resume res)
         {
-            var resumeHtml = ResumeTemplate(res);
+            string fromAddress = PortalSettings.Email;
+            string toAddress = res.SendAddress;
+            string subject = $"Resumé for {res.Name}";
+            string body = "<p>Thanks!</p>";
 
+            if (DotNetNuke.Services.Mail.Mail.IsValidEmailAddress(toAddress, PortalSettings.PortalId))
+            {
+            var resumeHtml = ResumeTemplate(res);
             var fileName = DateTime.Now.Ticks;
             var portalPath = $@"https://www.virtualcareersystem.com/Portals/5/PDF/{fileName}.pdf";
             var Renderer = new HtmlToPdf();
             MemoryStream stream = Renderer.RenderHtmlAsPdf(resumeHtml).Stream;
 
-            HttpResponseMessage httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK);
-            httpResponseMessage.Content = new StreamContent(stream);
-            httpResponseMessage.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
-            httpResponseMessage.Content.Headers.ContentDisposition.FileName = "Resume.pdf";
-            httpResponseMessage.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+            var attachments = new List<System.Net.Mail.Attachment>();
+            System.Net.Mime.ContentType ct = new System.Net.Mime.ContentType(System.Net.Mime.MediaTypeNames.Application.Pdf);
+            System.Net.Mail.Attachment attach = new System.Net.Mail.Attachment(stream, ct);
+            attach.ContentDisposition.FileName = "resume.pdf";
+            attachments.Add(attach);
 
+            DotNetNuke.Services.Mail.Mail.SendEmail(fromAddress, fromAddress, toAddress, subject, body, attachments);
+
+            HttpResponseMessage httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK, "Success");
             return httpResponseMessage;
+            } else
+            {
+                HttpResponseMessage httpResponseMessage = Request.CreateResponse(HttpStatusCode.PreconditionFailed, "Invalid e-mail");
+                return httpResponseMessage;
+            }
+
 
         }
+
     }
 }

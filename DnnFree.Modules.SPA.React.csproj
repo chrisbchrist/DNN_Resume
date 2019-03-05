@@ -65,7 +65,8 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="IronPdf, Version=5.0.5.17148, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\IronPdf.5.0.5.2\lib\net40\IronPdf.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>packages\IronPdf.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNetCore.Html.Abstractions, Version=1.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.AspNetCore.Html.Abstractions.1.1.1\lib\netstandard1.0\Microsoft.AspNetCore.Html.Abstractions.dll</HintPath>
@@ -206,6 +207,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="module.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -218,9 +220,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="src\index.js" />
-    <Content Include="src\pages\Layout.js" />
     <Content Include="Providers\DataProviders\SqlDataProvider\00.00.01.SqlDataProvider" />
     <Content Include="Providers\DataProviders\SqlDataProvider\Uninstall.SqlDataProvider" />
+    <Content Include="src\pages\App.js" />
     <Content Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>

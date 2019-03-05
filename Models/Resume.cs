@@ -16,5 +16,10 @@ namespace DnnFree.Modules.SPA.React.Models
         public List<Experience> Experience { get; set; } = new List<Experience>();
         public List<Education> Education { get; set; } = new List<Education>();
         public List<string> Skills { get; set; } = new List<string>();
+        public string SendAddress { get; set; }
+        public string Color { get; set; }
+        public string Font { get; set; }
+        public int TextSize { get; set; }
+        public int HeaderSize { get; set; }
     }
 }

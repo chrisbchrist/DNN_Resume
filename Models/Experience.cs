@@ -14,5 +14,6 @@ namespace DnnFree.Modules.SPA.React.Models
         public string Location { get; set; }
         public string Description { get; set; }
         public string[] DescList { get; set; }
+        public bool ListFormat { get; set; }
     }
 }
