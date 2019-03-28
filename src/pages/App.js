@@ -3,6 +3,10 @@ import allJobs from "../components/jobs";
 // const allJobs = require("../components/jobs.js");
 import "cropperjs/dist/cropper.css";
 import ImageCropper from "../components/ImageCropper";
+import Modal from "../components/CustomModal";
+import Loader from "../components/Loader";
+import ClassicTemplate from "../components/templates/Classic";
+import CreativeTemplate from "../components/templates/Creative";
 
 //TODO: Redux away this enormous excess of state
 
@@ -15,7 +19,7 @@ export default class App extends React.Component {
         currentPosition: "11th President",
         location: "The White House, USA",
         summary:
-          "I'm James K. Polk, and I was a U.S. President elected in 1844.  I served for only one term, and my wife and I were notorious workaholics.  I seized the whole Southwest from Mexico!",
+          "I'm James K. Polk, and I was a U.S. President elected in 1844!  I served for only one term, and my wife and I were notorious workaholics.  I seized the whole Southwest from Mexico!",
         email: "jkpolk@imdead.com",
         phone: "123.456.7890",
         experience: [
@@ -569,271 +573,6 @@ const Preview = props => {
       />
       {props.template === "classic" && <ClassicTemplate {...props} />}
       {props.template === "creative" && <CreativeTemplate {...props} />}
-    </div>
-  );
-};
-
-const ClassicTemplate = props => {
-  return (
-    <div
-      className="preview preview-classic"
-      style={{ fontFamily: props.font, fontSize: props.fontSize + "px" }}
-    >
-      <h1 id="name" style={{ color: props.color }}>
-        {props.resume.name}
-      </h1>
-      <p id="contact">
-        {props.resume.location}
-        {props.resume.email != "" && (
-          <span>
-            <span style={{ color: props.color, opacity: 0.7 }}> | </span>
-            <span style={{ fontWeight: "bold" }}>E: </span>
-            {props.resume.email}
-          </span>
-        )}
-        {props.resume.phone != "" && (
-          <span>
-            <span style={{ color: props.color, opacity: 0.7 }}> | </span>
-            <span style={{ fontWeight: "bold" }}>C: </span>
-            {props.resume.phone}
-          </span>
-        )}
-      </p>
-      <p id="current-position">{props.resume.currentPosition}</p>
-      <div id="summary">{props.resume.summary}</div>
-
-      {props.resume.skills.length > 0 && (
-        <p
-          className="exp-header"
-          style={{ color: props.color, fontSize: props.headerSize + "px" }}
-        >
-          <i className="fas fa-cogs" /> Skills
-        </p>
-      )}
-      <p className="secondary-text skills">
-        {props.resume.skills.map((skill, i) => {
-          return (
-            <span key={i}>
-              {skill}
-              {i < props.resume.skills.length - 1 && ", "}
-            </span>
-          );
-        })}
-      </p>
-
-      {props.resume.experience.length > 0 && (
-        <section className="resume-section" id="section-exp">
-          <p
-            className="exp-header"
-            style={{ color: props.color, fontSize: props.headerSize + "px" }}
-          >
-            <i className="fas fa-briefcase" /> Experience
-          </p>
-          {props.resume.experience.map((job, i) => {
-            return (
-              <div className="experience" key={"exp" + i}>
-                <div className="exp-left">
-                  <p className="exp-company primary-text">{job.company}</p>
-                  <p className="exp-location secondary-text">{job.location}</p>
-                  <p className="exp-dates secondary-text">
-                    {job.startDate} - {job.endDate}
-                  </p>
-                </div>
-                <div className="exp-right">
-                  <p className="exp-title primary-text">{job.title}</p>
-                  {!job.listFormat && (
-                    <p className="exp-desc secondary-text">{job.description}</p>
-                  )}
-                  {job.listFormat && (
-                    <ul className="exp-list">
-                      {job.descList.map((task, i) => (
-                        <li key={i}>{task}</li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              </div>
-            );
-          })}
-        </section>
-      )}
-
-      {props.resume.education.length > 0 && (
-        <p
-          className="exp-header"
-          style={{ color: props.color, fontSize: props.headerSize + "px" }}
-        >
-          <i className="fas fa-university" /> Education
-        </p>
-      )}
-      {props.resume.education.map((entry, i) => {
-        return (
-          <div className="experience" key={"edu" + i}>
-            <div className="exp-left">
-              <p className="exp-company primary-text">
-                {entry.school}
-                <span className="secondary-text">, {entry.location}</span>
-              </p>
-              <p className="exp-dates secondary-text">
-                {entry.startYear} - {entry.endYear}
-              </p>
-            </div>
-            <div className="exp-right">
-              <p className="exp-title primary-text">{entry.degree}</p>
-              <p className="exp-desc secondary-text">{entry.achievements}</p>
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  );
-};
-
-const CreativeTemplate = props => {
-  let profileImage = "";
-  if (props.resume.image) {
-    profileImage = <img src={props.resume.image} id="profile-image" />;
-  } else {
-    profileImage = (
-      <div className="image-placeholder">
-        <i className="fas fa-user-tie" />
-      </div>
-    );
-  }
-  return (
-    <div
-      className="preview preview-creative"
-      style={{ fontFamily: props.font, fontSize: props.fontSize + "px" }}
-    >
-      <div className="creative-sidebar" style={{ background: props.color }}>
-        <div className="creative-profile">
-          <div className="photo-edit">
-            <i className="fas fa-pencil-alt" />
-          </div>
-          {profileImage}
-        </div>
-        <h3 className="creative-name">{props.resume.name}</h3>
-        <p className="sidebar-current text-center">
-          {props.resume.currentPosition}
-        </p>
-        <p className="sidebar-text text-center">{props.resume.location}</p>
-        <p className="sidebar-text">{props.resume.summary}</p>
-        {(props.resume.email || props.resume.phone) && (
-          <div className="sidebar-contact">
-            <h2 className="sidebar-header">Information</h2>
-            <div className="sidebar-contact-group">
-              <div className="sidebar-icon">
-                <i className="fas fa-envelope" />
-              </div>{" "}
-              {props.resume.email}
-            </div>
-            <div className="sidebar-contact-group">
-              <div className="sidebar-icon">
-                <i className="fas fa-mobile-alt" />
-              </div>{" "}
-              {props.resume.phone}
-            </div>
-          </div>
-        )}
-      </div>
-      <div className="creative-main">
-        {props.resume.skills.length > 0 && (
-          <div
-            className="creative-header"
-            style={{ color: props.color, fontSize: props.headerSize + "px" }}
-          >
-            <div className="creative-icon">
-              <i className="fas fa-cogs" />
-            </div>{" "}
-            Skills
-          </div>
-        )}
-        <p className="secondary-text skills">
-          {props.resume.skills.map((skill, i) => {
-            return (
-              <span key={i}>
-                {skill}
-                {i < props.resume.skills.length - 1 && ", "}
-              </span>
-            );
-          })}
-        </p>
-
-        {props.resume.experience.length > 0 && (
-          <section className="resume-section" id="section-exp">
-            <div
-              className="creative-header"
-              style={{ color: props.color, fontSize: props.headerSize + "px" }}
-            >
-              <div className="creative-icon">
-                <i className="fas fa-briefcase" />
-              </div>{" "}
-              Experience
-            </div>
-            {props.resume.experience.map((job, i) => {
-              return (
-                <div className="experience" key={"exp" + i}>
-                  <div className="exp-left">
-                    <p className="exp-company primary-text">{job.company}</p>
-                    <p className="exp-location secondary-text">
-                      {job.location}
-                    </p>
-                    <p className="exp-dates secondary-text">
-                      {job.startDate} - {job.endDate}
-                    </p>
-                  </div>
-                  <div className="exp-right">
-                    <p className="exp-title primary-text">{job.title}</p>
-                    {!job.listFormat && (
-                      <p className="exp-desc secondary-text">
-                        {job.description}
-                      </p>
-                    )}
-                    {job.listFormat && (
-                      <ul className="exp-list">
-                        {job.descList.map((task, i) => (
-                          <li key={i}>{task}</li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </section>
-        )}
-
-        {props.resume.education.length > 0 && (
-          <div
-            className="creative-header"
-            style={{ color: props.color, fontSize: props.headerSize + "px" }}
-          >
-            <div className="creative-icon">
-              <i className="fas fa-university" />
-            </div>{" "}
-            Education
-          </div>
-        )}
-        {props.resume.education.map((entry, i) => {
-          return (
-            <div className="experience" key={"edu" + i}>
-              <div className="exp-left">
-                <p className="exp-company primary-text">
-                  {entry.school}
-                  <span className="secondary-text">, {entry.location}</span>
-                </p>
-                <p className="exp-dates secondary-text">
-                  {entry.startYear} - {entry.endYear}
-                </p>
-              </div>
-              <div className="exp-right">
-                <p className="exp-title primary-text">{entry.degree}</p>
-                <p className="exp-desc secondary-text">{entry.achievements}</p>
-              </div>
-            </div>
-          );
-        })}
-      </div>
     </div>
   );
 };
@@ -1829,81 +1568,6 @@ class SkillsEditor extends React.Component {
   }
 }
 
-class Modal extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: false,
-      pdf: false
-    };
-    this.onClose = this.onClose.bind(this);
-  }
-
-  onClose(e) {
-    if (e.target === e.currentTarget) {
-      this.props.onClose && this.props.onClose(e);
-    }
-  }
-
-  render() {
-    if (!this.props.show) {
-      return null;
-    }
-    return (
-      <div
-        className="custom-modal"
-        id="modal"
-        onClick={() => {
-          if (!this.props.preventBackgroundClose) {
-            this.onClose;
-          }
-        }}
-      >
-        <div
-          className="window"
-          style={{
-            maxWidth: this.props.customWidth ? this.props.customWidth : 650
-          }}
-        >
-          <div className="modal-close" onClick={this.onClose}>
-            X
-          </div>
-          {this.props.children}
-        </div>
-      </div>
-    );
-  }
-}
-
-const Loader = props => {
-  return (
-    <div className="loader">
-      {/* <div id="loader-6">
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>*/}
-      <div id="anim-wrapper">
-        <div id="anim-bg">
-          <div id="env-wrapper">
-            <div className="speedline line1" />
-            <div className="speedline line2" />
-            <div className="speedline line3" />
-            <i id="env" className="fas fa-envelope" />
-          </div>
-        </div>
-
-        <div id="check-container">
-          <div className="check-stroke1" />
-          <div className="check-stroke2" />
-        </div>
-      </div>
-      {props.children}
-    </div>
-  );
-};
-
 class EmailContent extends React.Component {
   constructor(props) {
     super(props);
@@ -1980,9 +1644,6 @@ class EmailContent extends React.Component {
           {this.state.loading && (
             <Loader>
               <h2 className="load-msg">Generating e-mail . . .</h2>
-              <p style={{ marginTop: 15 }}>
-                Sorry, this doesn't work on Codepen :({" "}
-              </p>
             </Loader>
           )}
           <img
@@ -2607,7 +2268,9 @@ class ImageInput extends React.Component {
       console.log(file.name);
       $uploadMsg = (
         <div className="upload-msg-wrapper">
-          <span style={{ fontWeight: "bold" }}>{file.name}</span>
+          <span style={{ fontWeight: "bold", maxWidth: "100%" }}>
+            {file.name}
+          </span>
           <span className="upload-msg">
             Click or drop file to change image.
           </span>
@@ -2623,6 +2286,7 @@ class ImageInput extends React.Component {
               {$uploadMsg}
             </label>
             <input
+              ref="upload-ref"
               id="file-upload"
               type="file"
               onChange={e => this.handleImage(e)}
@@ -2639,6 +2303,7 @@ class ImageInput extends React.Component {
           <ImageCropper
             src={this.state.imageUrl}
             setImage={this.props.setImage}
+            closeCropper={this.closeCropper}
           />
         </Modal>
       </div>

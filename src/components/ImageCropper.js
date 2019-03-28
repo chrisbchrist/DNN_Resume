@@ -35,7 +35,10 @@ export default class ImageCropper extends Component {
       {
         cropResult: this.cropper.getCroppedCanvas().toDataURL()
       },
-      () => this.props.setImage(this.state.cropResult)
+      () => {
+        this.props.setImage(this.state.cropResult);
+        this.props.closeCropper();
+      }
     );
   }
 
@@ -62,8 +65,8 @@ export default class ImageCropper extends Component {
           />
         </div>
         <div>
-          <div className="box" style={{ width: "50%", float: "right" }}>
-            <button onClick={this.cropImage}>Crop Image</button>
+          <div id="crop-btn" onClick={this.cropImage}>
+            <i className="fas fa-crop-alt" /> Crop Image
           </div>
         </div>
         <br style={{ clear: "both" }} />
