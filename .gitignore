@@ -195,6 +195,7 @@ ClientBin/
 dist/
 node_modules/
 install/
+packages/
 orleans.codegen.cs
 
 #DNN
