@@ -1,8 +1,4 @@
-# DnnFree.Modules.SPA.React
-
-DNN (DotNetNuke) SPA Module using React & Webpack for fast development
-
-This Module is made using DNN 9.2.
+A DNN (DotNetNuke) SPA Module resumé builder, made using the React/Webpack boilerplate from DnnFree.
 
 ## Getting started
 
