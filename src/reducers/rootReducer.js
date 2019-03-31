@@ -1,3 +1,5 @@
+const ADD_ARTICLE = "ADD_ARTICLE";
+
 const initialState = {
   resume: {
     name: "James K. Polk",
@@ -53,7 +55,9 @@ const initialState = {
 };
 
 function rootReducer(state = initialState, action) {
+  if (action.type === ADD_ARTICLE) {
+    state.articles.push(action.payload);
+  }
   return state;
 }
-
 export default rootReducer;
