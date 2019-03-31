@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import store from "./store";
 import App from "./pages/App";
 
 // Load on Ready
@@ -15,7 +17,12 @@ document.onreadystatechange = function() {
     //   };
     //   service.baseUrl = service.framework.getServiceRoot(service.path);
     //ReactDOM.render(<App mid={moduleId} />, document.getElementById("root"));
-    ReactDOM.render(<App />, document.getElementById("root"));
+    ReactDOM.render(
+      <Provider store={store}>
+        <App />
+      </Provider>,
+      document.getElementById("root")
+    );
     // });
   }
 };

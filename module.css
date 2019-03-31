@@ -778,6 +778,7 @@ svg {
 .input-holder .form-group textarea {
   border-radius: 0;
   border: none;
+  background-clip: none !important;
   color: rgba(0, 0, 0, 0.5);
 }
 
