@@ -1,10 +1,10 @@
 import React from "react";
-import allJobs from "../components/jobs";
-// const allJobs = require("../components/jobs.js");
 import "cropperjs/dist/cropper.css";
 import Dashboard from "../components/Dashboard";
 import Editors from "../components/editors/index";
 import Preview from "../components/Preview";
+import Form from "../components/TestInput";
+import List from "../components/TestOutput";
 
 //TODO: Redux, Redux, REDUX!!!
 
@@ -166,18 +166,17 @@ export default class App extends React.Component {
   setImage(data) {
     const resumeState = Object.assign({}, this.state.resume);
     resumeState.image = data;
-    this.setState(
-      {
-        resume: resumeState
-      },
-      () => console.log(this.state.resume.image)
-    );
+    this.setState({
+      resume: resumeState
+    });
   }
 
   render() {
     return (
       <div>
         {/* Needs some Redux! */}
+        <Form />
+        <List />
         <Dashboard
           resume={this.state.resume}
           color={this.state.color}

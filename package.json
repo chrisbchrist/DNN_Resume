@@ -38,6 +38,7 @@
     "react-dropzone": "^9.0.0",
     "react-redux": "^6.0.1",
     "react-router-dom": "^4.2.2",
-    "redux": "^4.0.1"
+    "redux": "^4.0.1",
+    "uuid": "^3.3.2"
   }
 }
