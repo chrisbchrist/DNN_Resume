@@ -1,8 +1,27 @@
 import React from "react";
 import Modal from "./CustomModal";
+import { connect } from "react-redux";
+import { setSize, setColor, updateField } from "../actions/index";
 import Templates from "./templates/Templates";
 
-export default class Wysiwyg extends React.Component {
+const mapStateToProps = state => {
+  return {
+    fontSize: state.fontSize,
+    headerSize: state.headerSize,
+    color: state.color,
+    font: state.font
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setSize: (type, size) => dispatch(setSize(type, size)),
+    setColor: color => dispatch(updateField("color", color)),
+    setFont: font => dispatch(updateField("font", font))
+  };
+};
+
+class ConnectedWysiwyg extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,28 +51,38 @@ export default class Wysiwyg extends React.Component {
       showTemplates: false
     };
     this.handleSizeChange = this.handleSizeChange.bind(this);
-    this.handleHeaderChange = this.handleHeaderChange.bind(this);
     this.toggleTemplates = this.toggleTemplates.bind(this);
+    this.handleColorChange = this.handleColorChange.bind(this);
+    this.handleFontChange = this.handleFontChange.bind(this);
   }
 
+  // Update text or header size depending on input name.  Maybe not the most durable solution.
   handleSizeChange(e) {
     const value = e.target.value;
-    this.setState({
-      fontSize: value
-    });
-  }
-
-  handleHeaderChange(e) {
-    const value = e.target.value;
-    this.setState({
-      headerSize: value
-    });
+    const type = e.target.getAttribute("name");
+    this.props.setSize(type, value);
   }
 
   toggleTemplates() {
     this.setState({
       showTemplates: !this.state.showTemplates
     });
+  }
+
+  //Handles colors both from presets and hex input
+  handleColorChange(e) {
+    const staticColor = e.target.getAttribute("data-color");
+    const customColor = "#" + e.target.value;
+    if (staticColor) {
+      this.props.setColor(staticColor);
+    } else if (customColor && /^#[0-9A-F]{6}$/i.test(customColor)) {
+      this.props.setColor(customColor);
+    }
+  }
+
+  handleFontChange(e) {
+    const font = e.target.getAttribute("data-font");
+    this.props.setFont(font);
   }
 
   render() {
@@ -89,7 +118,7 @@ export default class Wysiwyg extends React.Component {
                       data-color={color}
                       style={{ background: color }}
                       className="swatch"
-                      onClick={this.props.setColor}
+                      onClick={this.handleColorChange}
                       tabIndex="0"
                       key={i}
                     />
@@ -99,7 +128,7 @@ export default class Wysiwyg extends React.Component {
                   <div id="color-hash">#</div>
                   <input
                     maxLength="6"
-                    onChange={this.props.setCustomColor}
+                    onChange={this.handleColorChange}
                     type="text"
                   />
                 </div>
@@ -129,7 +158,7 @@ export default class Wysiwyg extends React.Component {
                 return (
                   <a
                     key={"font" + i}
-                    onClick={e => this.props.setFont(e)}
+                    onClick={e => this.handleFontChange(e)}
                     className="dropdown-item font-option"
                     href="#"
                     data-font={font}
@@ -148,9 +177,10 @@ export default class Wysiwyg extends React.Component {
             <span className="font-size">{this.props.fontSize}</span>px
           </span>
           <input
-            onChange={e => this.props.setFontSize(e)}
+            onChange={e => this.handleSizeChange(e)}
             value={this.props.fontSize}
             className="slider"
+            name="fontSize"
             id="volume"
             type="range"
             min="12"
@@ -163,9 +193,10 @@ export default class Wysiwyg extends React.Component {
             <span className="font-size">{this.props.headerSize}</span>px
           </span>
           <input
-            onChange={e => this.props.setHeaderSize(e)}
+            onChange={e => this.handleSizeChange(e)}
             value={this.props.headerSize}
             className="slider"
+            name="headerSize"
             id="volume"
             type="range"
             min="15"
@@ -179,12 +210,16 @@ export default class Wysiwyg extends React.Component {
           </span>
         </div>
         <Modal show={this.state.showTemplates} onClose={this.toggleTemplates}>
-          <Templates
-            setTemplate={this.props.setTemplate}
-            onClose={this.toggleTemplates}
-          />
+          <Templates onClose={this.toggleTemplates} />
         </Modal>
       </div>
     );
   }
 }
+
+const Wysiwyg = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ConnectedWysiwyg);
+
+export default Wysiwyg;

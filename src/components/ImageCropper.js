@@ -1,7 +1,15 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { updateField } from "../actions/index";
 import ReactCropper from "react-cropper/dist/react-cropper";
 
-export default class ImageCropper extends Component {
+const mapDispatchToProps = dispatch => {
+  return {
+    setImage: image => dispatch(updateField("image", image))
+  };
+};
+
+class ConnectedImageCropper extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -37,6 +45,7 @@ export default class ImageCropper extends Component {
       },
       () => {
         this.props.setImage(this.state.cropResult);
+        console.log(this.state.cropResult);
         this.props.closeCropper();
       }
     );
@@ -53,7 +62,7 @@ export default class ImageCropper extends Component {
       <div>
         <div style={{ width: "100%" }}>
           <ReactCropper
-            style={{ height: 600, width: "100%" }}
+            style={{ height: 500, width: "100%" }}
             aspectRatio={1}
             dragMode={"crop"}
             preview=".crop-preview"
@@ -74,3 +83,10 @@ export default class ImageCropper extends Component {
     );
   }
 }
+
+const ImageCropper = connect(
+  null,
+  mapDispatchToProps
+)(ConnectedImageCropper);
+
+export default ImageCropper;

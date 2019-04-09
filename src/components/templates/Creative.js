@@ -2,8 +2,8 @@ import React from "react";
 
 const CreativeTemplate = props => {
   let profileImage = "";
-  if (props.resume.image) {
-    profileImage = <img src={props.resume.image} id="profile-image" />;
+  if (props.image) {
+    profileImage = <img src={props.image} id="profile-image" />;
   } else {
     profileImage = (
       <div className="image-placeholder">
@@ -70,7 +70,7 @@ const CreativeTemplate = props => {
           })}
         </p>
 
-        {props.resume.experience.length > 0 && (
+        {props.experience.length > 0 && (
           <section className="resume-section" id="section-exp">
             <div
               className="creative-header"
@@ -81,7 +81,7 @@ const CreativeTemplate = props => {
               </div>{" "}
               Experience
             </div>
-            {props.resume.experience.map((job, i) => {
+            {props.experience.map((job, i) => {
               return (
                 <div className="experience" key={"exp" + i}>
                   <div className="exp-left">
