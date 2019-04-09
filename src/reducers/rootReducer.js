@@ -1,10 +1,17 @@
-const ADD_ARTICLE = "ADD_ARTICLE";
+import {
+  ADD_ITEM,
+  DELETE_ITEM,
+  UPDATE_ITEM,
+  SET_SIZE,
+  UPDATE_FIELD,
+  REORDER
+} from "../actions/constants";
 
-const initialState = {
+const oldState = {
   resume: {
-    name: "James K. Polk",
-    currentPosition: "11th President",
-    location: "The White House, USA",
+    name: "Christopher Blakely",
+    currentPosition: "Web Developer",
+    location: "West Palm Beach, FL",
     summary:
       "I'm James K. Polk, and I was a U.S. President elected in 1844!  I served for only one term, and my wife and I were notorious workaholics.  I seized the whole Southwest from Mexico!",
     email: "jkpolk@imdead.com",
@@ -54,10 +61,142 @@ const initialState = {
   template: "classic"
 };
 
+const initialState = {
+  items: [],
+  fontSize: 14,
+  headerSize: 18,
+  template: "classic",
+  font: "Raleway",
+  color: "#16a0db",
+  name: "Christopher Blakely",
+  location: "West Palm Beach, FL",
+  email: "chris@chris-blakely.com",
+  phone: "(617) - 817 - 4780",
+  currentPosition: "Web Developer",
+  summary:
+    "Self-taught front end developer with a full stack foundation, an addiction to learning and a passion for solving difficult problems in creative ways. Started coding on lunch breaks in 2016, employed full time within a year and driven to keep growing professionally. Focused on MERN with .NET experience and an interest in all things programming, a grateful and motivated critical thinker with the ability to adapt to new technologies quickly and the dedication of someone living out their daydream.",
+  image: "",
+  experience: [
+    {
+      title: "Front End Web Developer",
+      company: "Careersource Palm Beach County",
+      startDate: "Dec 2017",
+      endDate: "Present",
+      location: "West Palm Beach, FL",
+      description: "",
+      descList: [
+        "Primary developer for an organizational web product offering career tools and services, responsible for creating, developing, testing, updating and maintaining several DotNetNuke web portals and realizing new functionality as envisioned by management",
+        "Developed interactive client-side data tools with React and jQuery, making use of numerous JavaScript libraries and 3rd party REST API's to integrate and visualize dynamic labor market information",
+        "Developed and tested DotNetNuke single page application modules with a modern React workflow and wrote server-side ASP.NET Web API routes in C# to add back-end capabilities.",
+        "Built responsive, cross-browser compatible and pixel-perfect web pages from provided mock-ups using HTML5, CSS3 and JavaScript ES6",
+        "Wrote content, designed and produced promotional materials/videos, and gave public presentations in support of the project, including at the statewide 2018 Workforce Development Summit in Orlando"
+      ],
+      listFormat: true
+    },
+    {
+      title: "Visa Specialist",
+      company: "Expedited Travel",
+      startDate: "Jun 2016",
+      endDate: "Dec 2017",
+      location: "West Palm Beach, FL",
+      description: "",
+      descList: [
+        "Answered general knowledge questions and provided guidance and customer service to clients obtaining a travel visa",
+        "Performed detailed document checks and verifications of visa application paperwork",
+        "Interfaced with couriers across the country to track the processing and shipment of paperwork and completed visas and resolve any issues in a timely manner"
+      ],
+      listFormat: true
+    },
+    {
+      title: "Beach Club Associate",
+      company: "The Mar-a-Lago Club",
+      startDate: "Oct 2015",
+      endDate: "Jun 2016",
+      location: "Palm Beach, FL",
+      description: "",
+      descList: [
+        "Greeted and arranged seating for guests, provided world class food and beverage service and attended to any and all needs of Club members at the poolside and beachfront facilities."
+      ],
+      listFormat: true
+    }
+  ],
+  education: [
+    // {
+    //   school: "Florida State University",
+    //   degree: "Presidential Studies",
+    //   startYear: "1832",
+    //   endYear: "1836",
+    //   location: "Florida",
+    //   achievements: "Fulfilled our Manifest Destiny"
+    // }
+  ],
+  skills: [
+    "HTML5",
+    "CSS3",
+    "JavaScript ES6",
+    "jQuery",
+    "React",
+    "Redux",
+    "Webpack",
+    "DotNetNuke (DNN)",
+    "C#",
+    "Razor",
+    "Git",
+    "Node",
+    "Express",
+    "EJS",
+    "Bootstrap",
+    "MongoDB",
+    "SQL",
+    "Adobe Creative Suite (Photoshop, Illustrator, After Effects)"
+  ]
+};
+
 function rootReducer(state = initialState, action) {
-  if (action.type === ADD_ARTICLE) {
-    state.articles.push(action.payload);
+  switch (action.type) {
+    case ADD_ITEM: {
+      return Object.assign({}, state, {
+        [action.collection]: state[action.collection].concat(action.payload)
+      });
+      break;
+    }
+    case DELETE_ITEM: {
+      const collection = Array.from(state[action.collection]);
+      collection.splice(action.index, 1);
+      return Object.assign({}, state, { [action.collection]: collection });
+      break;
+    }
+    case UPDATE_ITEM: {
+      const collection = Array.from(state[action.collection]);
+      collection[action.index] = action.payload;
+      return Object.assign({}, state, { [action.collection]: collection });
+      break;
+    }
+    case REORDER: {
+      const collection = Array.from(state[action.collection]);
+      let temp = collection[action.index];
+      collection[action.index] = collection[action.index + action.direction];
+      collection[action.index + action.direction] = temp;
+      console.log(collection);
+      return Object.assign({}, state, { [action.collection]: collection });
+      break;
+    }
+    case UPDATE_FIELD: {
+      return Object.assign({}, state, {
+        [action.field]: action.value
+      });
+      break;
+    }
+    case SET_SIZE: {
+      const target = action.target;
+      return Object.assign({}, state, {
+        [target]: action.size
+      });
+      break;
+    }
+    default: {
+      return state;
+    }
   }
-  return state;
 }
 export default rootReducer;

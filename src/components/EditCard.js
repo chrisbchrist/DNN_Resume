@@ -1,6 +1,17 @@
 import React from "react";
+import { connect } from "react-redux";
+import { deleteItem, reOrder } from "../actions/index";
 
-const EditCard = props => {
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    delete: (collection, index) =>
+      dispatch(deleteItem(ownProps.collection, ownProps.index)),
+    reOrder: direction =>
+      dispatch(reOrder(ownProps.collection, ownProps.index, direction))
+  };
+};
+
+const ConnectedEditCard = props => {
   return (
     <div
       className={
@@ -9,18 +20,12 @@ const EditCard = props => {
     >
       <div className="order-wrapper">
         {props.index > 0 && (
-          <div
-            className="order order-up"
-            onClick={() => props.reOrder(props.collection, props.index, -1)}
-          >
+          <div className="order order-up" onClick={() => props.reOrder(-1)}>
             <i className="fas fa-caret-up" />
           </div>
         )}
         {props.showDownArrow && (
-          <div
-            className="order order-down"
-            onClick={() => props.reOrder(props.collection, props.index, 1)}
-          >
+          <div className="order order-down" onClick={() => props.reOrder(1)}>
             <i className="fas fa-caret-down" />
           </div>
         )}
@@ -36,12 +41,17 @@ const EditCard = props => {
       <div
         data-index={props.index}
         className="edit-btn delete"
-        onClick={() => props.delete(props.collection, props.index)}
+        onClick={props.delete}
       >
         <i className="fas fa-trash-alt" />
       </div>
     </div>
   );
 };
+
+const EditCard = connect(
+  null,
+  mapDispatchToProps
+)(ConnectedEditCard);
 
 export default EditCard;

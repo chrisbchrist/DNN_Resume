@@ -1,7 +1,23 @@
 import React from "react";
+import { connect } from "react-redux";
+import { addItem, updateItem } from "../../actions/index";
 import EditCard from "../EditCard";
 
-export default class SkillsEditor extends React.Component {
+const mapStateToProps = state => {
+  return {
+    skills: state.skills
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addSkill: payload => dispatch(addItem("skills", payload)),
+    updateSkill: (payload, index) =>
+      dispatch(updateItem("skills", payload, index))
+  };
+};
+
+class ConnectedSkillsEditor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,7 +49,7 @@ export default class SkillsEditor extends React.Component {
 
   add() {
     if (this.state.skill) {
-      this.props.addItem("skills", this.state.skill);
+      this.props.addSkill(this.state.skill);
       this.resetSkills();
     }
   }
@@ -61,7 +77,7 @@ export default class SkillsEditor extends React.Component {
   }
 
   update() {
-    this.props.updateItem("skills", this.state.skill, this.state.editIndex);
+    this.props.updateSkill(this.state.skill, this.state.editIndex);
     this.resetSkills();
   }
 
@@ -71,24 +87,25 @@ export default class SkillsEditor extends React.Component {
         {this.state.editIndex < 0 && this.props.skills.length > 0 && (
           <h6 className="edit-label">Current Skills</h6>
         )}
-        {this.state.editIndex < 0 &&
-          this.props.skills.map((skill, i) => {
-            let showDownArrow =
-              this.props.skills.length > 1 && i < this.props.skills.length - 1;
-            return (
-              <EditCard
-                key={i}
-                showDownArrow={showDownArrow}
-                index={i}
-                reOrder={this.props.reOrder}
-                editMode={this.editMode}
-                delete={this.props.deleteItem}
-                collection="skills"
-              >
-                <p style={{ fontWeight: "bold" }}>{skill}</p>
-              </EditCard>
-            );
-          })}
+        <div className="edit-card-wrapper">
+          {this.state.editIndex < 0 &&
+            this.props.skills.map((skill, i) => {
+              let showDownArrow =
+                this.props.skills.length > 1 &&
+                i < this.props.skills.length - 1;
+              return (
+                <EditCard
+                  key={i}
+                  showDownArrow={showDownArrow}
+                  index={i}
+                  editMode={this.editMode}
+                  collection="skills"
+                >
+                  <p style={{ fontWeight: "bold" }}>{skill}</p>
+                </EditCard>
+              );
+            })}
+        </div>
         <div className="form-group top-group">
           <label className="label-hidden">Skill</label>
           <input
@@ -123,3 +140,10 @@ export default class SkillsEditor extends React.Component {
     );
   }
 }
+
+const SkillsEditor = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ConnectedSkillsEditor);
+
+export default SkillsEditor;

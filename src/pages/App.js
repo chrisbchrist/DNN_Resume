@@ -1,6 +1,4 @@
 import React from "react";
-import allJobs from "../components/jobs";
-// const allJobs = require("../components/jobs.js");
 import "cropperjs/dist/cropper.css";
 import Dashboard from "../components/Dashboard";
 import Editors from "../components/editors/index";
@@ -22,7 +20,7 @@ export default class App extends React.Component {
         phone: "123.456.7890",
         experience: [
           {
-            title: "Not the President",
+            title: "POOPOO",
             company: "America",
             startDate: "1848",
             endDate: "Death",
@@ -31,7 +29,7 @@ export default class App extends React.Component {
               "I accomplished all my stated goals in a single term and fulfilled my promise not to seek a second."
           },
           {
-            title: "11th President",
+            title: "EAT DA POOPOO",
             company: "America",
             startDate: "1844",
             endDate: "1848",
@@ -64,84 +62,14 @@ export default class App extends React.Component {
       headerSize: 15,
       template: "classic"
     };
-    this.updateOneField = this.updateOneField.bind(this);
-    this.addItem = this.addItem.bind(this);
-    this.setColor = this.setColor.bind(this);
-    this.setCustomColor = this.setCustomColor.bind(this);
-    this.setFont = this.setFont.bind(this);
     this.updateItem = this.updateItem.bind(this);
-    this.deleteItem = this.deleteItem.bind(this);
     this.reOrder = this.reOrder.bind(this);
-    this.setFontSize = this.setFontSize.bind(this);
-    this.setHeaderSize = this.setHeaderSize.bind(this);
-    this.setTemplate = this.setTemplate.bind(this);
     this.setImage = this.setImage.bind(this);
-  }
-
-  updateOneField(field, val) {
-    const resumeState = Object.assign({}, this.state.resume);
-    resumeState[field] = val;
-    this.setState({
-      resume: resumeState
-    });
-  }
-
-  addItem(collection, item) {
-    const resumeState = Object.assign({}, this.state.resume);
-    resumeState[collection].push(item);
-    this.setState({
-      resume: resumeState
-    });
-  }
-
-  setColor(e) {
-    const color = e.target.getAttribute("data-color");
-    this.setState({
-      color: color
-    });
-  }
-
-  setCustomColor(e) {
-    const value = "#" + e.target.value;
-    if (/^#[0-9A-F]{6}$/i.test(value)) {
-      this.setState({
-        color: value
-      });
-    }
-  }
-
-  setFont(e) {
-    const font = e.target.getAttribute("data-font");
-    this.setState({
-      font: font
-    });
-  }
-
-  setFontSize(e) {
-    const newVal = e.target.value;
-    this.setState({
-      textSize: newVal
-    });
-  }
-
-  setHeaderSize(e) {
-    const newVal = e.target.value;
-    this.setState({
-      headerSize: newVal
-    });
   }
 
   updateItem(collection, item, index) {
     const resumeState = Object.assign({}, this.state.resume);
     resumeState[collection][index] = item;
-    this.setState({
-      resume: resumeState
-    });
-  }
-
-  deleteItem(collection, index) {
-    const resumeState = Object.assign({}, this.state.resume);
-    resumeState[collection].splice(index, 1);
     this.setState({
       resume: resumeState
     });
@@ -157,60 +85,29 @@ export default class App extends React.Component {
     });
   }
 
-  setTemplate(template) {
-    this.setState({
-      template: template
-    });
-  }
-
   setImage(data) {
     const resumeState = Object.assign({}, this.state.resume);
     resumeState.image = data;
-    this.setState(
-      {
-        resume: resumeState
-      },
-      () => console.log(this.state.resume.image)
-    );
+    this.setState({
+      resume: resumeState
+    });
   }
 
   render() {
     return (
       <div>
         {/* Needs some Redux! */}
-        <Dashboard
-          resume={this.state.resume}
-          color={this.state.color}
-          font={this.state.font}
-          fontSize={this.state.textSize}
-          headerSize={this.state.headerSize}
-        />
+        <Dashboard resume={this.state.resume} />
         <div id="app-main">
           <Editors
             update={this.updateOneField}
             resume={this.state.resume}
             reOrder={this.reOrder}
-            addItem={this.addItem}
             updateItem={this.updateItem}
-            deleteItem={this.deleteItem}
             template={this.state.template}
-            setImage={this.setImage}
           />
 
-          <Preview
-            resume={this.state.resume}
-            color={this.state.color}
-            font={this.state.font}
-            fontSize={this.state.textSize}
-            headerSize={this.state.headerSize}
-            setColor={this.setColor}
-            setCustomColor={this.setCustomColor}
-            setFont={this.setFont}
-            setFontSize={this.setFontSize}
-            setHeaderSize={this.setHeaderSize}
-            template={this.state.template}
-            setTemplate={this.setTemplate}
-          />
+          <Preview resume={this.state.resume} />
         </div>
       </div>
     );

@@ -1,6 +1,20 @@
 import React from "react";
+import { connect } from "react-redux";
+import { updateField } from "../../actions/index";
 
-export default class Templates extends React.Component {
+const mapStateToProps = state => {
+  return {
+    template: state.template
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setTemplate: template => dispatch(updateField("template", template))
+  };
+};
+
+class ConnectedTemplates extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -78,3 +92,10 @@ export default class Templates extends React.Component {
     );
   }
 }
+
+const Templates = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ConnectedTemplates);
+
+export default Templates;

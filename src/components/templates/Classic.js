@@ -7,29 +7,29 @@ const ClassicTemplate = props => {
       style={{ fontFamily: props.font, fontSize: props.fontSize + "px" }}
     >
       <h1 id="name" style={{ color: props.color }}>
-        {props.resume.name}
+        {props.name}
       </h1>
       <p id="contact">
-        {props.resume.location}
-        {props.resume.email != "" && (
+        {props.location}
+        {props.email != "" && (
           <span>
             <span style={{ color: props.color, opacity: 0.7 }}> | </span>
             <span style={{ fontWeight: "bold" }}>E: </span>
-            {props.resume.email}
+            {props.email}
           </span>
         )}
-        {props.resume.phone != "" && (
+        {props.phone != "" && (
           <span>
             <span style={{ color: props.color, opacity: 0.7 }}> | </span>
             <span style={{ fontWeight: "bold" }}>C: </span>
-            {props.resume.phone}
+            {props.phone}
           </span>
         )}
       </p>
-      <p id="current-position">{props.resume.currentPosition}</p>
-      <div id="summary">{props.resume.summary}</div>
+      <p id="current-position">{props.currentPosition}</p>
+      <div id="summary">{props.summary}</div>
 
-      {props.resume.skills.length > 0 && (
+      {props.skills.length > 0 && (
         <p
           className="exp-header"
           style={{ color: props.color, fontSize: props.headerSize + "px" }}
@@ -38,17 +38,17 @@ const ClassicTemplate = props => {
         </p>
       )}
       <p className="secondary-text skills">
-        {props.resume.skills.map((skill, i) => {
+        {props.skills.map((skill, i) => {
           return (
             <span key={i}>
               {skill}
-              {i < props.resume.skills.length - 1 && ", "}
+              {i < props.skills.length - 1 && ", "}
             </span>
           );
         })}
       </p>
 
-      {props.resume.experience.length > 0 && (
+      {props.experience.length > 0 && (
         <section className="resume-section" id="section-exp">
           <p
             className="exp-header"
@@ -56,7 +56,7 @@ const ClassicTemplate = props => {
           >
             <i className="fas fa-briefcase" /> Experience
           </p>
-          {props.resume.experience.map((job, i) => {
+          {props.experience.map((job, i) => {
             return (
               <div className="experience" key={"exp" + i}>
                 <div className="exp-left">
@@ -84,8 +84,14 @@ const ClassicTemplate = props => {
           })}
         </section>
       )}
-
-      {props.resume.education.length > 0 && (
+      <p
+        className="exp-header"
+        style={{ color: props.color, fontSize: props.headerSize + "px" }}
+      >
+        <i className="fas fa-certificate" /> Certifications
+      </p>
+      <p>Certified in Front End Development by freeCodeCamp.com</p>
+      {props.education.length > 0 && (
         <p
           className="exp-header"
           style={{ color: props.color, fontSize: props.headerSize + "px" }}
@@ -93,7 +99,7 @@ const ClassicTemplate = props => {
           <i className="fas fa-university" /> Education
         </p>
       )}
-      {props.resume.education.map((entry, i) => {
+      {props.education.map((entry, i) => {
         return (
           <div className="experience" key={"edu" + i}>
             <div className="exp-left">

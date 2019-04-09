@@ -50,8 +50,8 @@ export default class ImageInput extends React.Component {
 
   render() {
     let { file, imageUrl } = this.state;
-    let $imagePreview = null;
-    let $uploadMsg = null;
+    let $imagePreview;
+    let $uploadMsg;
     if (imageUrl) {
       $imagePreview = <img id="img-preview" src={imageUrl} />;
     } else {
@@ -71,9 +71,7 @@ export default class ImageInput extends React.Component {
       console.log(file.name);
       $uploadMsg = (
         <div className="upload-msg-wrapper">
-          <span style={{ fontWeight: "bold", maxWidth: "100%" }}>
-            {file.name}
-          </span>
+          <span className="upload-msg-file">{file.name}</span>
           <span className="upload-msg">
             Click or drop file to change image.
           </span>
@@ -85,7 +83,7 @@ export default class ImageInput extends React.Component {
       <div>
         <div className="img-input-wrapper">
           <form onSubmit={e => this.handleSubmit(e)}>
-            <label for="file-upload" id="upload-label">
+            <label htmlFor="file-upload" id="upload-label">
               {$uploadMsg}
             </label>
             <input
@@ -105,7 +103,6 @@ export default class ImageInput extends React.Component {
         >
           <ImageCropper
             src={this.state.imageUrl}
-            setImage={this.props.setImage}
             closeCropper={this.closeCropper}
           />
         </Modal>
