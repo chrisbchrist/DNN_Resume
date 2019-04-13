@@ -198,7 +198,7 @@ class ConnectedExperienceEditor extends React.Component {
               {this.state.editIndex < 0 && this.props.experience.length > 0 && (
                 <h6 className="edit-label">Current Experience</h6>
               )}
-              <div className="edit-card-wrapper">
+              <ul className="edit-card-wrapper">
                 {this.state.editIndex < 0 &&
                   this.props.experience.map((job, i) => {
                     let showDownArrow =
@@ -217,7 +217,7 @@ class ConnectedExperienceEditor extends React.Component {
                       </EditCard>
                     );
                   })}
-              </div>
+              </ul>
               <div className="form-group top-group">
                 <label className="label-hidden">Title</label>
                 <input

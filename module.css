@@ -384,7 +384,7 @@ svg {
   background: white;
   /*   border: 1px solid #eee; */
   min-height: 11in;
-  width: 8.5in;
+  max-width: 11in;
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
   color: #222;
   margin: 15px auto;
@@ -1030,6 +1030,8 @@ svg {
   margin-bottom: 15px;
   max-height: 400px;
   overflow-y: auto;
+  list-style: none;
+  padding: 0;
 }
 
 .edit-card {
@@ -1053,8 +1055,8 @@ svg {
 .edit-card:hover {
   color: rgba(255, 255, 255, 0.75);
   /*   border: 1px solid rgba(255,255,255,.75); */
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
-  transform: translateY(-2px);
+  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.35);
+  transform: translateY(-1px);
   background: #444;
 }
 

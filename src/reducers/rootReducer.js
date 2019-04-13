@@ -67,14 +67,14 @@ const initialState = {
   headerSize: 18,
   template: "classic",
   font: "Raleway",
-  color: "#16a0db",
+  color: "rgb(153, 0, 239)",
   name: "Christopher Blakely",
   location: "West Palm Beach, FL",
   email: "chris@chris-blakely.com",
   phone: "(617) - 817 - 4780",
   currentPosition: "Web Developer",
   summary:
-    "Self-taught front end developer with a full stack foundation, an addiction to learning and a passion for solving difficult problems in creative ways. Started coding on lunch breaks in 2016, employed full time within a year and driven to keep growing professionally. Focused on MERN with .NET experience and an interest in all things programming, a grateful and motivated critical thinker with the ability to adapt to new technologies quickly and the dedication of someone living out their daydream.",
+    "Self-taught front end developer with a full stack foundation, an addiction to learning and a passion for solving difficult problems in creative ways. Coding since 2016, currently focused on MERN development with .NET experience, I'm a grateful and motivated critical thinker with the ability to adapt to new technologies and turn them into real-world solutions quickly.",
   image: "",
   experience: [
     {

@@ -3,6 +3,8 @@ import "cropperjs/dist/cropper.css";
 import Dashboard from "../components/Dashboard";
 import Editors from "../components/editors/index";
 import Preview from "../components/Preview";
+import { DragDropContextProvider } from "react-dnd";
+import HTML5Backend from "react-dnd-html5-backend";
 
 //TODO: Redux, Redux, REDUX!!!
 
@@ -95,8 +97,7 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div>
-        {/* Needs some Redux! */}
+      <DragDropContextProvider backend={HTML5Backend}>
         <Dashboard resume={this.state.resume} />
         <div id="app-main">
           <Editors
@@ -109,7 +110,7 @@ export default class App extends React.Component {
 
           <Preview resume={this.state.resume} />
         </div>
-      </div>
+      </DragDropContextProvider>
     );
   }
 }

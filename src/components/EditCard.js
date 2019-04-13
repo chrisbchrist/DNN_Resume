@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { deleteItem, reOrder } from "../actions/index";
+import { SortableElement } from "react-sortable-hoc";
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
@@ -13,7 +14,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 const ConnectedEditCard = props => {
   return (
-    <div
+    <li
       className={
         props.collection == "skills" ? "edit-card skill-card" : "edit-card"
       }
@@ -45,7 +46,7 @@ const ConnectedEditCard = props => {
       >
         <i className="fas fa-trash-alt" />
       </div>
-    </div>
+    </li>
   );
 };
 
