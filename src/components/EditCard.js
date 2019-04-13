@@ -5,21 +5,20 @@ import { SortableElement } from "react-sortable-hoc";
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    delete: (collection, index) =>
-      dispatch(deleteItem(ownProps.collection, ownProps.index)),
+    delete: () => dispatch(deleteItem(ownProps.collection, ownProps.index)),
     reOrder: direction =>
       dispatch(reOrder(ownProps.collection, ownProps.index, direction))
   };
 };
 
-const ConnectedEditCard = props => {
+const ConnectedEditCard = SortableElement(props => {
   return (
     <li
       className={
         props.collection == "skills" ? "edit-card skill-card" : "edit-card"
       }
     >
-      <div className="order-wrapper">
+      {/* <div className="order-wrapper">
         {props.index > 0 && (
           <div className="order order-up" onClick={() => props.reOrder(-1)}>
             <i className="fas fa-caret-up" />
@@ -30,7 +29,7 @@ const ConnectedEditCard = props => {
             <i className="fas fa-caret-down" />
           </div>
         )}
-      </div>
+      </div> */}
       {props.children}
       <div
         data-index={props.index}
@@ -48,7 +47,7 @@ const ConnectedEditCard = props => {
       </div>
     </li>
   );
-};
+});
 
 const EditCard = connect(
   null,

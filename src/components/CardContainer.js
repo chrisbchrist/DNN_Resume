@@ -1,35 +1,30 @@
 import React from "react";
 import { connect } from "react-redux";
 import { SortableContainer } from "react-sortable-hoc";
+import EditCard from "./EditCard";
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    experience: state.experience,
-    collection: ownProps.collection
+    collection: state[ownProps.collectionName]
   };
 };
 
-const ConnectedCardContainer = SortableContainer(props => {
+const SortableCardContainer = SortableContainer(props => {
   return (
     <ul className="edit-card-wrapper">
-      {props.experience.map((job, index) => (
+      {props.collection.map((payload, index) => (
         <EditCard
-          key={i}
+          key={index}
           // showDownArrow={showDownArrow}
           index={index}
-          editMode={this.editMode}
-          collection="experience"
-        >
-          <p>
-            <strong>{job.title}</strong>
-          </p>
-          <p>{job.company}</p>
-        </EditCard>
+          editMode={props.editMode}
+          collection={props.collectionName}
+        />
       ))}
     </ul>
   );
 });
 
-const CardContainer = connect(mapStateToProps)(ConnectedCardContainer);
+const CardContainer = connect(mapStateToProps)(SortableCardContainer);
 
 export default CardContainer;

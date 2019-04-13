@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { addItem, updateItem } from "../../actions/index";
+import { addItem, updateItem, reOrder } from "../../actions/index";
+import CardContainer from "../CardContainer";
 import EditCard from "../EditCard";
 import Modal from "../CustomModal";
 import DescriptionWizard from "../DescriptionWizard";
@@ -15,7 +16,9 @@ const mapDispatchToProps = dispatch => {
   return {
     addExp: payload => dispatch(addItem("experience", payload)),
     updateExp: (payload, index) =>
-      dispatch(updateItem("experience", payload, index))
+      dispatch(updateItem("experience", payload, index)),
+    reOrder: (index, direction) =>
+      dispatch(reOrder("experience", index, direction))
   };
 };
 
@@ -49,6 +52,7 @@ class ConnectedExperienceEditor extends React.Component {
     this.toggleWizard = this.toggleWizard.bind(this);
     this.setTasks = this.setTasks.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
+    this.onSortEnd = this.onSortEnd.bind(this);
   }
 
   resetExperience() {
@@ -68,6 +72,11 @@ class ConnectedExperienceEditor extends React.Component {
       requiredFieldsPresent: true,
       currentlyEmployed: false
     });
+  }
+
+  onSortEnd({ oldIndex, newIndex }) {
+    const difference = newIndex - oldIndex;
+    this.props.reOrder(oldIndex, difference);
   }
 
   handleExpChange(e, field) {
@@ -198,26 +207,15 @@ class ConnectedExperienceEditor extends React.Component {
               {this.state.editIndex < 0 && this.props.experience.length > 0 && (
                 <h6 className="edit-label">Current Experience</h6>
               )}
-              <ul className="edit-card-wrapper">
-                {this.state.editIndex < 0 &&
-                  this.props.experience.map((job, i) => {
-                    let showDownArrow =
-                      this.props.experience.length > 1 &&
-                      i < this.props.experience.length - 1;
-                    return (
-                      <EditCard
-                        key={i}
-                        showDownArrow={showDownArrow}
-                        index={i}
-                        editMode={this.editMode}
-                        collection="experience"
-                      >
-                        <p style={{ fontWeight: "bold" }}>{job.title}</p>
-                        <p>{job.company}</p>
-                      </EditCard>
-                    );
-                  })}
-              </ul>
+              {this.state.editIndex < 0 && (
+                <CardContainer
+                  collectionName="experience"
+                  editMode={this.editMode}
+                  onSortEnd={this.onSortEnd}
+                  transitionDuration={400}
+                  helperClass={"edit-card--dragging"}
+                />
+              )}
               <div className="form-group top-group">
                 <label className="label-hidden">Title</label>
                 <input

@@ -1027,7 +1027,7 @@ svg {
 }
 
 .edit-card-wrapper {
-  margin-bottom: 15px;
+  margin-bottom: 0;
   max-height: 400px;
   overflow-y: auto;
   list-style: none;
@@ -1042,8 +1042,10 @@ svg {
   position: relative;
   min-height: 69px;
   margin: 5px 0;
-  transition: all 0.2s ease-in-out;
   font-family: ProximaNova, "Raleway";
+  list-style: none;
+  transition: box-shadow 0.2s, background 0.2s, color 0.2s;
+  cursor: row-resize;
 }
 
 .skill-card {
@@ -1058,6 +1060,13 @@ svg {
   box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.35);
   transform: translateY(-1px);
   background: #444;
+}
+
+.edit-card--dragging {
+  color: rgba(255, 255, 255, 0.75);
+  /*   border: 1px solid rgba(255,255,255,.75); */
+  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.35);
+  background: #555;
 }
 
 .edit-card p {

@@ -13,7 +13,8 @@ const mapDispatchToProps = dispatch => {
   return {
     addSkill: payload => dispatch(addItem("skills", payload)),
     updateSkill: (payload, index) =>
-      dispatch(updateItem("skills", payload, index))
+      dispatch(updateItem("skills", payload, index)),
+    reOrder: (index, direction) => dispatch(reOrder("skills", index, direction))
   };
 };
 
