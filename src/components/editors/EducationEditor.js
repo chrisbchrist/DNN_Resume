@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { addItem, updateItem } from "../../actions/index";
+import { addItem, updateItem, reOrder } from "../../actions/index";
+import CardContainer from "../CardContainer";
 import EditCard from "../EditCard";
 
 const mapStateToProps = state => {
@@ -14,7 +15,8 @@ const mapDispatchToProps = dispatch => {
     addEdu: payload => dispatch(addItem("education", payload)),
     updateEdu: (payload, index) =>
       dispatch(updateItem("education", payload, index)),
-    reOrder: (index, direction) => dispatch(reOrder("skills", index, direction))
+    reOrder: (index, direction) =>
+      dispatch(reOrder("education", index, direction))
   };
 };
 
@@ -37,6 +39,7 @@ class ConnectedEducationEditor extends React.Component {
     this.add = this.add.bind(this);
     this.editMode = this.editMode.bind(this);
     this.update = this.update.bind(this);
+    this.onSortEnd = this.onSortEnd.bind(this);
   }
 
   resetEducation() {
@@ -63,12 +66,17 @@ class ConnectedEducationEditor extends React.Component {
     });
   }
 
+  onSortEnd({ oldIndex, newIndex, collection }) {
+    this.props.reOrder(oldIndex, newIndex);
+  }
+
   add() {
     if (
       this.state.currentEducation.school &&
       this.state.currentEducation.degree
     ) {
       this.props.addEdu(this.state.currentEducation);
+      this.resetEducation();
     }
   }
 
@@ -112,24 +120,28 @@ class ConnectedEducationEditor extends React.Component {
                 <h6 className="edit-label">Current Education</h6>
               )}
               <div className="edit-card-wrapper">
-                {this.state.editIndex < 0 &&
-                  this.props.education.map((entry, i) => {
-                    let showDownArrow =
-                      this.props.education.length > 1 &&
-                      i < this.props.education.length - 1;
-                    return (
+                {this.state.editIndex < 0 && (
+                  <CardContainer
+                    editMode={this.editMode}
+                    onSortEnd={this.onSortEnd}
+                    transitionDuration={400}
+                    helperClass={"edit-card--dragging"}
+                  >
+                    {this.props.education.map((school, index) => (
                       <EditCard
-                        key={i}
-                        showDownArrow={showDownArrow}
-                        index={i}
-                        editMode={this.editMode}
-                        collection="education"
+                        key={index}
+                        index={index}
+                        editMode={this.props.editMode}
+                        collection={"education"}
                       >
-                        <p style={{ fontWeight: "bold" }}>{entry.school}</p>
-                        <p>{entry.degree}</p>
+                        <p>
+                          <strong>{school.school}</strong>
+                        </p>
+                        <p>{school.degree}</p>
                       </EditCard>
-                    );
-                  })}
+                    ))}
+                  </CardContainer>
+                )}
               </div>
               <div className="form-group top-group">
                 <label className="label-hidden">School</label>

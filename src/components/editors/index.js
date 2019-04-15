@@ -25,7 +25,7 @@ export default class Editors extends React.Component {
 
         <ExperienceEditor preventSubmit={this.preventSubmit} />
 
-        {/* <EducationEditor preventSubmit={this.preventSubmit} /> */}
+        <EducationEditor preventSubmit={this.preventSubmit} />
 
         <div className="resume-card card">
           <div
@@ -48,14 +48,14 @@ export default class Editors extends React.Component {
             data-parent="#accordion"
           >
             <div className="card-body">
-              {/* <SkillsEditor
+              <SkillsEditor
                 skills={this.props.resume.skills}
                 reOrder={this.props.reOrder}
                 addItem={this.props.addItem}
                 updateItem={this.props.updateItem}
                 deleteItem={this.props.deleteItem}
                 preventSubmit={this.preventSubmit}
-              /> */}
+              />
             </div>
           </div>
         </div>

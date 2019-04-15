@@ -17,8 +17,8 @@ const mapDispatchToProps = dispatch => {
     addExp: payload => dispatch(addItem("experience", payload)),
     updateExp: (payload, index) =>
       dispatch(updateItem("experience", payload, index)),
-    reOrder: (index, direction) =>
-      dispatch(reOrder("experience", index, direction))
+    reOrder: (index, newIndex) =>
+      dispatch(reOrder("experience", index, newIndex))
   };
 };
 
@@ -74,9 +74,8 @@ class ConnectedExperienceEditor extends React.Component {
     });
   }
 
-  onSortEnd({ oldIndex, newIndex }) {
-    const difference = newIndex - oldIndex;
-    this.props.reOrder(oldIndex, difference);
+  onSortEnd({ oldIndex, newIndex, collection }) {
+    this.props.reOrder(oldIndex, newIndex);
   }
 
   handleExpChange(e, field) {
@@ -209,12 +208,25 @@ class ConnectedExperienceEditor extends React.Component {
               )}
               {this.state.editIndex < 0 && (
                 <CardContainer
-                  collectionName="experience"
                   editMode={this.editMode}
                   onSortEnd={this.onSortEnd}
                   transitionDuration={400}
                   helperClass={"edit-card--dragging"}
-                />
+                >
+                  {this.props.experience.map((job, index) => (
+                    <EditCard
+                      key={index}
+                      index={index}
+                      editMode={this.editMode}
+                      collection={"experience"}
+                    >
+                      <p>
+                        <strong>{job.title}</strong>
+                      </p>
+                      <p>{job.company}</p>
+                    </EditCard>
+                  ))}
+                </CardContainer>
               )}
               <div className="form-group top-group">
                 <label className="label-hidden">Title</label>

@@ -21,8 +21,8 @@ export function updateItem(collection, payload, index) {
   return { type: UPDATE_ITEM, collection, payload, index };
 }
 
-export function reOrder(collection, index, direction) {
-  return { type: REORDER, collection, index, direction };
+export function reOrder(collection, index, newIndex) {
+  return { type: REORDER, collection, index, newIndex };
 }
 
 export function setSize(target, size) {

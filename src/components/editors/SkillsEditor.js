@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { addItem, updateItem } from "../../actions/index";
+import { addItem, updateItem, reOrder } from "../../actions/index";
+import CardContainer from "../CardContainer";
 import EditCard from "../EditCard";
 
 const mapStateToProps = state => {
@@ -32,6 +33,7 @@ class ConnectedSkillsEditor extends React.Component {
     this.editMode = this.editMode.bind(this);
     this.cancelEdit = this.cancelEdit.bind(this);
     this.update = this.update.bind(this);
+    this.onSortEnd = this.onSortEnd.bind(this);
   }
 
   resetSkills() {
@@ -39,6 +41,10 @@ class ConnectedSkillsEditor extends React.Component {
       skill: "",
       editIndex: -1
     });
+  }
+
+  onSortEnd({ oldIndex, newIndex, collection }) {
+    this.props.reOrder(oldIndex, newIndex);
   }
 
   handleChange(e) {
@@ -89,23 +95,27 @@ class ConnectedSkillsEditor extends React.Component {
           <h6 className="edit-label">Current Skills</h6>
         )}
         <div className="edit-card-wrapper">
-          {this.state.editIndex < 0 &&
-            this.props.skills.map((skill, i) => {
-              let showDownArrow =
-                this.props.skills.length > 1 &&
-                i < this.props.skills.length - 1;
-              return (
+          {this.state.editIndex < 0 && (
+            <CardContainer
+              editMode={this.editMode}
+              onSortEnd={this.onSortEnd}
+              transitionDuration={400}
+              helperClass={"edit-card--dragging"}
+            >
+              {this.props.skills.map((skill, index) => (
                 <EditCard
-                  key={i}
-                  showDownArrow={showDownArrow}
-                  index={i}
+                  key={index}
+                  index={index}
                   editMode={this.editMode}
-                  collection="skills"
+                  collection={"skills"}
                 >
-                  <p style={{ fontWeight: "bold" }}>{skill}</p>
+                  <p>
+                    <strong>{skill}</strong>
+                  </p>
                 </EditCard>
-              );
-            })}
+              ))}
+            </CardContainer>
+          )}
         </div>
         <div className="form-group top-group">
           <label className="label-hidden">Skill</label>

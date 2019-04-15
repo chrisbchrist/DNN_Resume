@@ -3,16 +3,16 @@ import { connect } from "react-redux";
 import { SortableContainer } from "react-sortable-hoc";
 import EditCard from "./EditCard";
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    collection: state[ownProps.collectionName]
-  };
-};
+// const mapStateToProps = (state, ownProps) => {
+//   return {
+//     collection: state[ownProps.collectionName]
+//   };
+// };
 
-const SortableCardContainer = SortableContainer(props => {
+const CardContainer = SortableContainer(props => {
   return (
     <ul className="edit-card-wrapper">
-      {props.collection.map((payload, index) => (
+      {/* {props.collection.map((payload, index) => (
         <EditCard
           key={index}
           // showDownArrow={showDownArrow}
@@ -20,11 +20,10 @@ const SortableCardContainer = SortableContainer(props => {
           editMode={props.editMode}
           collection={props.collectionName}
         />
-      ))}
+      ))} */}
+      {props.children}
     </ul>
   );
 });
-
-const CardContainer = connect(mapStateToProps)(SortableCardContainer);
 
 export default CardContainer;

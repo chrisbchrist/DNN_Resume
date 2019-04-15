@@ -64,27 +64,7 @@ export default class App extends React.Component {
       headerSize: 15,
       template: "classic"
     };
-    this.updateItem = this.updateItem.bind(this);
-    this.reOrder = this.reOrder.bind(this);
     this.setImage = this.setImage.bind(this);
-  }
-
-  updateItem(collection, item, index) {
-    const resumeState = Object.assign({}, this.state.resume);
-    resumeState[collection][index] = item;
-    this.setState({
-      resume: resumeState
-    });
-  }
-
-  reOrder(collection, index, direction) {
-    const resumeState = Object.assign({}, this.state.resume);
-    var temp = resumeState[collection][index];
-    resumeState[collection][index] = resumeState[collection][index + direction];
-    resumeState[collection][index + direction] = temp;
-    this.setState({
-      resume: resumeState
-    });
   }
 
   setImage(data) {
@@ -97,7 +77,7 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <DragDropContextProvider backend={HTML5Backend}>
+      <div>
         <Dashboard resume={this.state.resume} />
         <div id="app-main">
           <Editors
@@ -110,7 +90,7 @@ export default class App extends React.Component {
 
           <Preview resume={this.state.resume} />
         </div>
-      </DragDropContextProvider>
+      </div>
     );
   }
 }

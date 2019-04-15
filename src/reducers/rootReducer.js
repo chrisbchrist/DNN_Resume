@@ -121,14 +121,22 @@ const initialState = {
     }
   ],
   education: [
-    // {
-    //   school: "Florida State University",
-    //   degree: "Presidential Studies",
-    //   startYear: "1832",
-    //   endYear: "1836",
-    //   location: "Florida",
-    //   achievements: "Fulfilled our Manifest Destiny"
-    // }
+    {
+      school: "Florida State University",
+      degree: "Presidential Studies",
+      startYear: "1832",
+      endYear: "1836",
+      location: "Florida",
+      achievements: "Fulfilled our Manifest Destiny"
+    },
+    {
+      school: "Fartington College",
+      degree: "Presidential Studies",
+      startYear: "1832",
+      endYear: "1836",
+      location: "Florida",
+      achievements: "Fulfilled our Manifest Destiny"
+    }
   ],
   skills: [
     "HTML5",
@@ -174,10 +182,11 @@ function rootReducer(state = initialState, action) {
     }
     case REORDER: {
       const collection = Array.from(state[action.collection]);
-      let temp = collection[action.index];
-      collection[action.index] = collection[action.index + action.direction];
-      collection[action.index + action.direction] = temp;
-      console.log(collection);
+      collection.splice(
+        action.newIndex,
+        0,
+        collection.splice(action.index, 1)[0]
+      );
       return Object.assign({}, state, { [action.collection]: collection });
       break;
     }
