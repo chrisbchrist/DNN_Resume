@@ -126,7 +126,11 @@ export default class Dashboard extends React.Component {
                     <i className="fas fa-envelope" />
                     E-mail
                   </a>
-                  <a className="dropdown-item share-option" tabIndex="0">
+                  <a
+                    onClick={this.savePdf}
+                    className="dropdown-item share-option"
+                    tabIndex="0"
+                  >
                     <i className="fas fa-file-pdf" />
                     Download PDF
                   </a>

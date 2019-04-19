@@ -1,1 +1,41 @@
-﻿
+﻿/************************************************************/
+/*****              SqlDataProvider                     *****/
+/*****                                                  *****/
+/*****                                                  *****/
+/***** Note: To manually execute this script you must   *****/
+/*****       perform a search and replace operation     *****/
+/*****       for {databaseOwner} and {objectQualifier}  *****/
+/*****                                                  *****/
+/************************************************************/
+
+IF EXISTS (SELECT * FROM sys.objects WHERE [object_id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Resume_Builder_Resumes]') AND type in (N'U'))
+	DROP TABLE {databaseOwner}[{objectQualifier}Resume_Builder_Resumes]
+GO
+
+CREATE TABLE {databaseOwner}{objectQualifier}Resume_Builder_Resumes
+(
+	[ResumeId] INT NOT NULL IDENTITY (1, 1),
+	[Name] NVARCHAR(MAX) NOT NULL,
+	[CurrentPosition] NVARCHAR(MAX) NOT NULL,
+	[Location] NVARCHAR(MAX) NOT NULL,
+	[Summary] NVARCHAR(255) NOT NULL,
+	[Email] NVARCHAR(50) NOT NULL,
+	[Phone] NVARCHAR(20) NOT NULL,
+	[SendAddress] NVARCHAR(50) NOT NULL,
+	[Color] NVARCHAR(7) NOT NULL,
+	[Font] NVARCHAR(20) NOT NULL,
+	[TextSize] INT NOT NULL,
+	[HeaderSize] INT NOT NULL,
+	[CreatedOnDate] DATETIME NOT NULL,
+	[LastModifiedOnDate] DATETIME NOT NULL,
+)
+GO
+
+
+ALTER TABLE {databaseOwner}[{objectQualifier}Resume_Builder_Resumes] ADD CONSTRAINT [PK_{objectQualifier}Resume_Builder_Resumes] PRIMARY KEY CLUSTERED ([ResumeId])
+GO
+
+
+/************************************************************/
+/*****              SqlDataProvider                     *****/
+/************************************************************/

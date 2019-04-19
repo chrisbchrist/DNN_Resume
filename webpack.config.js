@@ -1,14 +1,14 @@
 const path = require("path");
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: "./src/index-dev.js",
   output: {
-    path: path.join(__dirname, "/bundle"),
-    filename: "dnnfree_spa_react_bundle.js"
+    path: path.join(__dirname, "/dist"),
+    filename: "resume_builder_bundle.js"
   },
   devServer: {
     watchContentBase: true,
-    publicPath: "/bundle/"
+    publicPath: "/dist/"
   },
   module: {
     rules: [

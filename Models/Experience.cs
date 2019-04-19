@@ -1,10 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using DotNetNuke.ComponentModel.DataAnnotations;
+using System.Web.Caching;
 using System.Linq;
 using System.Web;
 
 namespace DnnFree.Modules.SPA.React.Models
 {
+    [TableName("Experience")]
+    [PrimaryKey("ExperienceId", AutoIncrement = true)]
+    [Scope("ModuleId")]
+    [Cacheable("Experience", CacheItemPriority.Normal, 20)]
     public class Experience
     {
         public string Title { get; set; }

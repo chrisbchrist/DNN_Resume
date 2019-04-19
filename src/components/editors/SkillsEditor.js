@@ -90,7 +90,7 @@ class ConnectedSkillsEditor extends React.Component {
 
   render() {
     return (
-      <div className="input-holder">
+      <div className="input-holder class">
         {this.state.editIndex < 0 && this.props.skills.length > 0 && (
           <h6 className="edit-label">Current Skills</h6>
         )}

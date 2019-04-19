@@ -202,12 +202,16 @@
   <ItemGroup>
     <Content Include="BuildScripts\ModulePackage.targets" />
     <Content Include="BuildScripts\MSBuild.Community.Tasks.Targets" />
+    <Content Include="bundle\dnnfree_spa_react_bundle.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="dist\dnnfree_spa_react_bundle.js" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="module.css" />
+    <Content Include="Resources\dist\dnnfree_spa_react_bundle.js" />
+    <Content Include="Resources\dist\resume_builder_bundle.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -219,12 +223,37 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="src\actions\constants.js" />
+    <Content Include="src\actions\index.js" />
+    <Content Include="src\components\CardContainer.js" />
+    <Content Include="src\components\CustomModal.js" />
+    <Content Include="src\components\Dashboard.js" />
+    <Content Include="src\components\DescriptionWizard.js" />
+    <Content Include="src\components\dragTypes.js" />
+    <Content Include="src\components\EditCard.js" />
+    <Content Include="src\components\editors\EducationEditor.js" />
+    <Content Include="src\components\editors\ExperienceEditor.js" />
+    <Content Include="src\components\editors\GeneralEditor.js" />
+    <Content Include="src\components\editors\index.js" />
+    <Content Include="src\components\editors\SkillsEditor.js" />
+    <Content Include="src\components\EmailContent.js" />
     <Content Include="src\components\ImageCropper.js" />
+    <Content Include="src\components\ImageInput.js" />
+    <Content Include="src\components\JobAutocomplete.js" />
     <Content Include="src\components\jobs.js" />
+    <Content Include="src\components\Loader.js" />
+    <Content Include="src\components\Preview.js" />
+    <Content Include="src\components\templates\Classic.js" />
+    <Content Include="src\components\templates\Creative.js" />
+    <Content Include="src\components\templates\Templates.js" />
+    <Content Include="src\components\Wysiwyg.js" />
     <Content Include="src\index.js" />
     <Content Include="Providers\DataProviders\SqlDataProvider\00.00.01.SqlDataProvider" />
     <Content Include="Providers\DataProviders\SqlDataProvider\Uninstall.SqlDataProvider" />
     <Content Include="src\pages\App.js" />
+    <Content Include="src\reducers\rootReducer.js" />
+    <Content Include="src\reducers\why.js" />
+    <Content Include="src\store.js" />
     <Content Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
@@ -235,6 +264,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Components\FeatureController.cs" />
+    <Compile Include="Components\IResumeRepository.cs" />
+    <Compile Include="Components\ResumeRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -275,6 +306,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\" />
+    <Folder Include="Views\IResumeRepository\" />
     <Folder Include="Views\Resume\" />
   </ItemGroup>
   <ItemGroup>
