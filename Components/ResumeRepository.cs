@@ -12,6 +12,8 @@ namespace DnnFree.Modules.SPA.React.Components
 {
     public class ResumeRepository : ServiceLocator<IResumeRepository, ResumeRepository>, IResumeRepository
     {
+        //Connection String for DNNDEV
+        //Data Source=NUDDIN;Initial Catalog=DNNDev;Integrated Security=True
 
         protected override Func<IResumeRepository> GetFactory()
         {

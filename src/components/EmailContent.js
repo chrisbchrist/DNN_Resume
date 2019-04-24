@@ -1,7 +1,14 @@
 import React from "react";
 import Loader from "./Loader";
+import { connect } from "react-redux";
 
-export default class EmailContent extends React.Component {
+const mapStateToProps = state => {
+  return {
+    resume: state
+  };
+};
+
+class ConnectedEmailContent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,11 +40,10 @@ export default class EmailContent extends React.Component {
         loading: true
       });
       let data = this.props.resume;
-      data.color = this.props.color;
-      data.font = this.props.font;
+      console.log(data);
+      console.log(this.props);
       data.sendAddress = this.state.email;
-      data.textSize = this.props.fontSize;
-      data.headerSize = this.props.headerSize;
+      data.textSize = this.props.resume.fontSize;
       fetch("/DesktopModules/ResumeBuilder/API/Resume/Email", {
         method: "POST",
         headers: {
@@ -84,7 +90,7 @@ export default class EmailContent extends React.Component {
             src="https://res.cloudinary.com/dgeb3iekh/image/upload/v1547954707/paper-plane_zyz7sb.svg"
           />
           <h2 className="text-center email-msg">
-            Enter an e-mail address and we'll send your resumé as a PDF.
+            Enter your e-mail address and we'll send your resumé as a PDF.
           </h2>
           <div className="form-group">
             <label className="sr-only" htmlFor="exampleInputEmail1">
@@ -123,3 +129,7 @@ export default class EmailContent extends React.Component {
     }
   }
 }
+
+const EmailContent = connect(mapStateToProps)(ConnectedEmailContent);
+
+export default EmailContent;

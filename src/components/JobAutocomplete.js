@@ -102,20 +102,29 @@ export default class JobAutocomplete extends React.Component {
       if (filteredSuggestions.length) {
         suggestionsListComponent = (
           <ul className="suggestions">
-            {filteredSuggestions.map((suggestion, index) => {
-              let className;
+            {filteredSuggestions
+              .sort(function(a, b) {
+                let startsWith = new RegExp("^" + userInput, "i");
+                if (a.match(startsWith)) {
+                  return -1;
+                } else {
+                  return 1;
+                }
+              })
+              .map((suggestion, index) => {
+                let className;
 
-              // Flag the active suggestion with a class
-              if (index === activeSuggestion) {
-                className = "suggestion-active";
-              }
+                // Flag the active suggestion with a class
+                if (index === activeSuggestion) {
+                  className = "suggestion-active";
+                }
 
-              return (
-                <li className={className} key={suggestion} onClick={onClick}>
-                  {suggestion}
-                </li>
-              );
-            })}
+                return (
+                  <li className={className} key={suggestion} onClick={onClick}>
+                    {suggestion}
+                  </li>
+                );
+              })}
           </ul>
         );
       } else {

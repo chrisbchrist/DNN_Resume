@@ -48,14 +48,7 @@ export default class Editors extends React.Component {
             data-parent="#accordion"
           >
             <div className="card-body">
-              <SkillsEditor
-                skills={this.props.resume.skills}
-                reOrder={this.props.reOrder}
-                addItem={this.props.addItem}
-                updateItem={this.props.updateItem}
-                deleteItem={this.props.deleteItem}
-                preventSubmit={this.preventSubmit}
-              />
+              <SkillsEditor preventSubmit={this.preventSubmit} />
             </div>
           </div>
         </div>

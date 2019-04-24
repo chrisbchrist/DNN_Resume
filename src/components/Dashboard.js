@@ -140,16 +140,7 @@ export default class Dashboard extends React.Component {
           </ul>
         </div>
         <Modal show={this.state.modalShow} onClose={this.closeModal}>
-          {this.state.email && (
-            <EmailContent
-              onClose={this.closeModal}
-              resume={this.props.resume}
-              color={this.props.color}
-              font={this.props.font}
-              fontSize={this.props.fontSize}
-              headerSize={this.props.headerSize}
-            />
-          )}
+          {this.state.email && <EmailContent onClose={this.closeModal} />}
         </Modal>
       </nav>
     );
