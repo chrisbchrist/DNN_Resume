@@ -13,7 +13,7 @@ namespace DnnFree.Modules.SPA.React.Models
     [Cacheable("Resumes", CacheItemPriority.Normal, 20)]
     public class Resume
     {
-        public string ResumeId { get; set; }
+        public int ResumeId { get; set; }
         public string ResumeName { get; set; }
         public string Name { get; set; }
         public string CurrentPosition { get; set; }
@@ -27,11 +27,15 @@ namespace DnnFree.Modules.SPA.React.Models
 
         [IgnoreColumn]
         public List<Education> Education { get; set; } = new List<Education>();
+
+        [IgnoreColumn]
         public List<string> Skills { get; set; } = new List<string>();
+
         public string SendAddress { get; set; }
         public string Color { get; set; }
         public string Font { get; set; }
         public int TextSize { get; set; }
         public int HeaderSize { get; set; }
+        public string Template { get; set; }
     }
 }

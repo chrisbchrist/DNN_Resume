@@ -21,11 +21,12 @@ CREATE TABLE {databaseOwner}{objectQualifier}Resume_Builder_Resumes
 	[Summary] NVARCHAR(255) NOT NULL,
 	[Email] NVARCHAR(50) NOT NULL,
 	[Phone] NVARCHAR(20) NOT NULL,
-	[SendAddress] NVARCHAR(50) NOT NULL,
+	[SendAddress] NVARCHAR(50) NULL,
 	[Color] NVARCHAR(7) NOT NULL,
 	[Font] NVARCHAR(20) NOT NULL,
 	[TextSize] INT NOT NULL,
 	[HeaderSize] INT NOT NULL,
+	[Template] NVARCHAR(20) NOT NULL,
 	[CreatedOnDate] DATETIME NOT NULL,
 	[LastModifiedOnDate] DATETIME NOT NULL,
 )

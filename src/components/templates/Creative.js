@@ -14,15 +14,10 @@ const CreativeTemplate = props => {
   return (
     <div
       className="preview preview-creative"
-      style={{ fontFamily: props.font, fontSize: props.fontSize + "px" }}
+      style={{ fontFamily: props.font, fontSize: props.textSize + "px" }}
     >
       <div className="creative-sidebar" style={{ background: props.color }}>
-        <div className="creative-profile">
-          {/*<div className="photo-edit">
-              <i className="fas fa-pencil-alt" />
-             </div>*/}
-          {profileImage}
-        </div>
+        <div className="creative-profile">{profileImage}</div>
         <h3 className="creative-name">{props.name}</h3>
         <p className="sidebar-current text-center">{props.currentPosition}</p>
         <p className="sidebar-text text-center">{props.location}</p>

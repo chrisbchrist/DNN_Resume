@@ -4,56 +4,57 @@ import {
   UPDATE_ITEM,
   SET_SIZE,
   UPDATE_FIELD,
-  REORDER
+  REORDER,
+  SAVE_PDF
 } from "../actions/constants";
 
-const oldState = {
-  resume: {
-    name: "Christopher Blakely",
-    currentPosition: "Web Developer",
-    location: "West Palm Beach, FL",
-    summary:
-      "I'm James K. Polk, and I was a U.S. President elected in 1844!  I served for only one term, and my wife and I were notorious workaholics.  I seized the whole Southwest from Mexico!",
-    email: "jkpolk@imdead.com",
-    phone: "123.456.7890",
-    experience: [
-      {
-        title: "Not the President",
-        company: "America",
-        startDate: "1848",
-        endDate: "Death",
-        location: "Western Hemisphere",
-        description:
-          "I accomplished all my stated goals in a single term and fulfilled my promise not to seek a second."
-      },
-      {
-        title: "11th President",
-        company: "America",
-        startDate: "1844",
-        endDate: "1848",
-        location: "Western Hemisphere",
-        description: "",
-        descList: [
-          "Made sure the tariffs fell.",
-          "Made sure the English sold the Oregon Territory.",
-          "Built an independent Treasury."
-        ],
-        listFormat: true,
-        image: ""
-      }
-    ],
-    education: [
-      {
-        school: "Florida State University",
-        degree: "Presidential Studies",
-        startYear: "1832",
-        endYear: "1836",
-        location: "Florida",
-        achievements: "Fulfilled our Manifest Destiny"
-      }
-    ],
-    skills: ["Dazzling oratory", "Austerity", "Severity"]
-  },
+const initialState = {
+  name: "James K. Polk",
+  currentPosition: "11th President",
+  location: "The White House, USA",
+  summary:
+    "I'm James K. Polk, and I was a U.S. President elected in 1844!  I served for only one term, and my wife and I were notorious workaholics.  I seized the whole Southwest from Mexico!",
+  email: "jkpolk@imdead.com",
+  phone: "123.456.7890",
+  experience: [
+    {
+      title: "Not the President",
+      company: "America",
+      startDate: "1848",
+      endDate: "Death",
+      location: "Western Hemisphere",
+      description:
+        "I accomplished all my stated goals in a single term and fulfilled my promise not to seek a second.",
+      descList: [],
+      listFormat: false
+    },
+    {
+      title: "11th President",
+      company: "America",
+      startDate: "1844",
+      endDate: "1848",
+      location: "Western Hemisphere",
+      description: "",
+      descList: [
+        "Made sure the tariffs fell.",
+        "Made sure the English sold the Oregon Territory.",
+        "Built an independent Treasury."
+      ],
+      listFormat: true,
+      image: ""
+    }
+  ],
+  education: [
+    {
+      school: "Florida State University",
+      degree: "Presidential Studies",
+      startYear: "1832",
+      endYear: "1836",
+      location: "Florida",
+      achievements: "Fulfilled our Manifest Destiny"
+    }
+  ],
+  skills: ["Dazzling oratory", "Austerity", "Severity"],
   color: "#16a0db",
   font: "Raleway",
   textSize: 14,
@@ -61,9 +62,9 @@ const oldState = {
   template: "classic"
 };
 
-const initialState = {
+const myState = {
   items: [],
-  fontSize: 14,
+  textSize: 14,
   headerSize: 18,
   template: "classic",
   font: "Raleway",
@@ -201,6 +202,27 @@ function rootReducer(state = initialState, action) {
       return Object.assign({}, state, {
         [target]: action.size
       });
+      break;
+    }
+    case SAVE_PDF: {
+      let data = Object.assign({}, state);
+      console.log(data);
+      fetch("/DesktopModules/ResumeBuilder/API/Resume/Stream", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data) // body data type must match "Content-Type" header
+      })
+        .then(response => response.json()) // parses response to JSON
+        .then(response => {
+          console.log(response);
+          // this.setState({
+          //   success: true,
+          //   fileLink: response
+          // });
+        });
+      return state;
       break;
     }
     default: {

@@ -12,11 +12,90 @@ using RazorLight;
 using IronPdf;
 using System.IO;
 using DnnFree.Modules.SPA.React.Models;
+using DnnFree.Modules.SPA.React.Components;
+using DnnFree.Modules.SPA.React.Services.ViewModels;
+using System.Net.Http.Headers;
 
 namespace DnnFree.Modules.SPA.React.Services
 {
     public class ResumeController : DnnApiController
     {
+        private readonly IResumeRepository _repository;
+
+        public ResumeController(IResumeRepository repository)
+        {
+            Requires.NotNull(repository);
+
+            this._repository = repository;
+        }
+
+        public ResumeController() : this(ResumeRepository.Instance) { }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public HttpResponseMessage Upsert(ResumeViewModel resume)
+        {
+            if (resume.Id > 0)
+            {
+                //var res = Update(resume);
+                return Request.CreateResponse(System.Net.HttpStatusCode.NoContent);
+            }
+            else
+            {
+                var res = Create(resume);
+                return Request.CreateResponse(res.ResumeId);
+            }
+
+        }
+
+        private Resume Create(ResumeViewModel resume)
+        {
+            Resume res = new Resume
+            {
+                Name = resume.Name,
+                CurrentPosition = resume.CurrentPosition,
+                Location = resume.Location,
+                Summary = resume.Summary,
+                Email = resume.Email,
+                Phone = resume.Phone,
+                SendAddress = resume.SendAddress,
+                Color = resume.Color,
+                Font = resume.Font,
+                TextSize = resume.TextSize,
+                HeaderSize = resume.HeaderSize,
+                Template = resume.Template,
+
+                //AssignedUserId = resume.AssignedUser,
+                //ModuleId = ActiveModule.ModuleID,
+                //CreatedByUserId = UserInfo.UserID,
+                //LastModifiedByUserId = UserInfo.UserID,
+                //CreatedOnDate = DateTime.UtcNow,
+                //LastModifiedOnDate = DateTime.UtcNow
+            };
+            _repository.AddResume(t);
+
+            return res;
+        }
+
+        //TODO: Set relevant properties
+        //private Resume Update(ResumeViewModel resume)
+        //{
+
+        //    var res = _repository.GetResume(resume.Id);
+        //    if (res != null)
+        //    {
+        //        res.ItemName = item.Name;
+        //        res.ItemDescription = item.Description;
+        //        res.AssignedUserId = item.AssignedUser;
+        //        res.LastModifiedByUserId = UserInfo.UserID;
+        //        res.LastModifiedOnDate = DateTime.UtcNow;
+        //    }
+        //    _repository.UpdateResume(res);
+
+        //    return res;
+        //}
+
+
         public string ResumeTemplate(Resume model)
         {
             string templatePath = $@"{PortalSettings.HomeDirectoryMapPath}\Templates";
@@ -29,21 +108,46 @@ namespace DnnFree.Modules.SPA.React.Services
         }
 
 
+        //[AllowAnonymous]
+        //[HttpGet]
+        //public HttpResponseMessage Stream(string uid)
+        //{
+        //    var filePath = $@"{PortalSettings.HomeDirectoryMapPath}PDF\{uid}.pdf";
+        //    var dataBytes = File.ReadAllBytes(filePath);
+        //    var dataStream = new MemoryStream(dataBytes);
+
+        //    HttpResponseMessage httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK);
+        //    httpResponseMessage.Content = new StreamContent(dataStream);
+        //    httpResponseMessage.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
+        //    httpResponseMessage.Content.Headers.ContentDisposition.FileName = "Resume.pdf";
+        //    httpResponseMessage.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+
+        //    return httpResponseMessage;
+        //}
+
         [AllowAnonymous]
-        [HttpGet]
-        public HttpResponseMessage Stream(string uid)
+        [HttpPost]
+        public HttpResponseMessage Stream([FromBody]Resume res)
         {
-            var filePath = $@"{PortalSettings.HomeDirectoryMapPath}PDF\{uid}.pdf";
-            var dataBytes = File.ReadAllBytes(filePath);
-            var dataStream = new MemoryStream(dataBytes);
+            var resumeHtml = ResumeTemplate(res);
 
-            HttpResponseMessage httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK);
-            httpResponseMessage.Content = new StreamContent(dataStream);
-            httpResponseMessage.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
-            httpResponseMessage.Content.Headers.ContentDisposition.FileName = "Resume.pdf";
-            httpResponseMessage.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+            var Renderer = new HtmlToPdf();
+            var PDF = Renderer.RenderHtmlAsPdf(resumeHtml);
+            var stream = PDF.Stream;
 
-            return httpResponseMessage;
+            var result = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new ByteArrayContent(stream.ToArray())
+            };
+            result.Content.Headers.ContentDisposition =
+                new ContentDispositionHeaderValue("attachment")
+                {
+                    FileName = "lmao.pdf"
+                };
+            result.Content.Headers.ContentType =
+                new MediaTypeHeaderValue("application/octet-stream");
+
+            return result;
         }
 
         // GET: Resume
@@ -74,7 +178,7 @@ namespace DnnFree.Modules.SPA.React.Services
             string fromAddress = PortalSettings.Email;
             string toAddress = res.SendAddress;
             string subject = $"Resumé for {res.Name}";
-            string body = "<p>Thanks!</p>";
+            string body = "<p>Good luck!</p>";
 
             if (DotNetNuke.Services.Mail.Mail.IsValidEmailAddress(toAddress, PortalSettings.PortalId))
             {

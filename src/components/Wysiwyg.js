@@ -6,7 +6,7 @@ import Templates from "./templates/Templates";
 
 const mapStateToProps = state => {
   return {
-    fontSize: state.fontSize,
+    textSize: state.textSize,
     headerSize: state.headerSize,
     color: state.color,
     font: state.font
@@ -46,7 +46,7 @@ class ConnectedWysiwyg extends React.Component {
         "#F78DA7",
         "#9900EF"
       ],
-      fontSize: 14,
+      textSize: 14,
       headerSize: 25,
       showTemplates: false
     };
@@ -173,14 +173,14 @@ class ConnectedWysiwyg extends React.Component {
         </div>
 
         <div className="tool-btn font-size-wrapper">
-          <span style={{ fontSize: 14 }}>
-            <span className="font-size">{this.props.fontSize}</span>px
+          <span style={{ textSize: 14 }}>
+            <span className="font-size">{this.props.textSize}</span>px
           </span>
           <input
             onChange={e => this.handleSizeChange(e)}
-            value={this.props.fontSize}
+            value={this.props.textSize}
             className="slider"
-            name="fontSize"
+            name="textSize"
             id="volume"
             type="range"
             min="12"
@@ -189,7 +189,7 @@ class ConnectedWysiwyg extends React.Component {
           <span className="font-label">Font Size</span>
         </div>
         <div className="tool-btn font-size-wrapper">
-          <span style={{ fontSize: 14 }}>
+          <span style={{ textSize: 14 }}>
             <span className="font-size">{this.props.headerSize}</span>px
           </span>
           <input

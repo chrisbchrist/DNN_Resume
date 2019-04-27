@@ -15,13 +15,17 @@ namespace DnnFree.Modules.SPA.React.Components
 
         int AddResume(Resume res);
 
-        void DeleteResume(int resumeId, int moduleId);
+        //void DeleteResume(int resumeId, int moduleId);
+
+        void DeleteResume(int resumeId);
 
         void DeleteResume(Resume res);
 
-        Resume GetResume(int resumeId, int moduleId);
+        Resume GetResume(int resumeId);
 
-        IQueryable<Resume> GetResumes(int moduleId);
+        //IQueryable<Resume> GetResumes(int moduleId);
+
+        IQueryable<Resume> GetResumes();
 
         void UpdateResume(Resume res);
     }

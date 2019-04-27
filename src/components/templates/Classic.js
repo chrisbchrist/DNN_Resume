@@ -4,7 +4,7 @@ const ClassicTemplate = props => {
   return (
     <div
       className="preview preview-classic"
-      style={{ fontFamily: props.font, fontSize: props.fontSize + "px" }}
+      style={{ fontFamily: props.font, fontSize: props.textSize + "px" }}
     >
       <h1 id="name" style={{ color: props.color }}>
         {props.name}
@@ -90,7 +90,7 @@ const ClassicTemplate = props => {
       >
         <i className="fas fa-certificate" /> Certifications
       </p>
-      <p>Certified in Front End Development by freeCodeCamp.com</p>
+      <p>Certified in Front End Development by FreeCodeCamp.com</p>
       {props.education.length > 0 && (
         <p
           className="exp-header"

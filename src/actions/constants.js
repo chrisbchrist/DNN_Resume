@@ -4,3 +4,4 @@ export const DELETE_ITEM = "DELETE_ITEM";
 export const REORDER = "REORDER";
 export const SET_SIZE = "SET_SIZE";
 export const UPDATE_FIELD = "UPDATE_FIELD";
+export const SAVE_PDF = "SAVE_PDF";

@@ -20,17 +20,17 @@ namespace DnnFree.Modules.SPA.React.Components
             return () => new ResumeRepository();
         }
 
-        public int AddResume(Resume t)
+        public int AddResume(Resume res)
         {
-            Requires.NotNull(t);
-            Requires.PropertyNotNegative(t, "ModuleId");
+            Requires.NotNull(res);
+            //Requires.PropertyNotNegative(t, "ModuleId");
 
             using (IDataContext ctx = DataContext.Instance())
             {
                 var rep = ctx.GetRepository<Resume>();
-                rep.Insert(t);
+                rep.Insert(res);
             }
-            return int.Parse(t.ResumeId);
+            return res.ResumeId;
         }
 
         public void DeleteResume(Resume t)
@@ -45,40 +45,75 @@ namespace DnnFree.Modules.SPA.React.Components
             }
         }
 
-        public void DeleteResume(int ResumeId, int moduleId)
+        //public void DeleteResume(int ResumeId, int moduleId)
+        //{
+        //    Requires.NotNegative("ResumeId", ResumeId);
+        //    Requires.NotNegative("moduleId", moduleId);
+
+        //    var t = GetResume(ResumeId, moduleId);
+        //    DeleteResume(t);
+        //}
+
+        public void DeleteResume(int ResumeId)
         {
             Requires.NotNegative("ResumeId", ResumeId);
-            Requires.NotNegative("moduleId", moduleId);
 
-            var t = GetResume(ResumeId, moduleId);
+            var t = GetResume(ResumeId);
             DeleteResume(t);
         }
 
-        public Resume GetResume(int ResumeId, int moduleId)
+        //public Resume GetResume(int ResumeId, int moduleId)
+        //{
+        //    Requires.NotNegative("ResumeId", ResumeId);
+        //    Requires.NotNegative("moduleId", moduleId);
+
+        //    Resume t;
+        //    using (IDataContext ctx = DataContext.Instance())
+        //    {
+        //        var rep = ctx.GetRepository<Resume>();
+        //        t = rep.GetById(ResumeId, moduleId);
+        //    }
+        //    return t;
+        //}
+
+        public Resume GetResume(int ResumeId)
         {
             Requires.NotNegative("ResumeId", ResumeId);
-            Requires.NotNegative("moduleId", moduleId);
 
             Resume t;
             using (IDataContext ctx = DataContext.Instance())
             {
                 var rep = ctx.GetRepository<Resume>();
-                t = rep.GetById(ResumeId, moduleId);
+                t = rep.GetById(ResumeId);
             }
             return t;
         }
 
-        public IQueryable<Resume> GetResumes(int moduleId)
-        {
-            Requires.NotNegative("moduleId", moduleId);
+        //public IQueryable<Resume> GetResumes(int moduleId)
+        //{
+        //    Requires.NotNegative("moduleId", moduleId);
 
+        //    IQueryable<Resume> t = null;
+
+        //    using (IDataContext ctx = DataContext.Instance())
+        //    {
+        //        var rep = ctx.GetRepository<Resume>();
+
+        //        t = rep.Get(moduleId).AsQueryable();
+        //    }
+
+        //    return t;
+        //}
+
+        public IQueryable<Resume> GetResumes()
+        {
             IQueryable<Resume> t = null;
 
             using (IDataContext ctx = DataContext.Instance())
             {
                 var rep = ctx.GetRepository<Resume>();
 
-                t = rep.Get(moduleId).AsQueryable();
+                t = rep.Get().AsQueryable();
             }
 
             return t;

@@ -6,7 +6,8 @@ import {
   SET_COLOR,
   DELETE_ITEM,
   UPDATE_ITEM,
-  REORDER
+  REORDER,
+  SAVE_PDF
 } from "./constants";
 
 export function addItem(collection, payload) {
@@ -39,4 +40,8 @@ export function setColor(color) {
 
 export function updateField(field, value) {
   return { type: UPDATE_FIELD, field, value };
+}
+
+export function savePdf() {
+  return { type: SAVE_PDF };
 }

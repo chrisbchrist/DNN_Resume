@@ -43,7 +43,7 @@ class ConnectedEmailContent extends React.Component {
       console.log(data);
       console.log(this.props);
       data.sendAddress = this.state.email;
-      data.textSize = this.props.resume.fontSize;
+      data.textSize = this.props.resume.textSize;
       fetch("/DesktopModules/ResumeBuilder/API/Resume/Email", {
         method: "POST",
         headers: {

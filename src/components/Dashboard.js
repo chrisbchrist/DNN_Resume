@@ -1,8 +1,16 @@
 import React from "react";
 import Modal from "./CustomModal";
 import EmailContent from "./EmailContent";
+import { connect } from "react-redux";
+import { savePdf } from "../actions/index";
 
-export default class Dashboard extends React.Component {
+const mapDispatchToProps = dispatch => {
+  return {
+    savePdf: () => dispatch(savePdf())
+  };
+};
+
+class ConnectedDashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,7 +21,6 @@ export default class Dashboard extends React.Component {
     this.closeModal = this.closeModal.bind(this);
     this.emailModal = this.emailModal.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
-    this.savePdf = this.savePdf.bind(this);
   }
 
   closeModal() {
@@ -37,29 +44,6 @@ export default class Dashboard extends React.Component {
       modalShow: true,
       email: true
     });
-  }
-
-  savePdf() {
-    let data = this.props.resume;
-    data.color = this.props.color;
-    data.font = this.props.font;
-    data.textSize = this.props.fontSize;
-    data.headerSize = this.props.headerSize;
-    fetch("/DesktopModules/ResumeBuilder/API/Resume/Save", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data) // body data type must match "Content-Type" header
-    })
-      .then(response => response.json()) // parses response to JSON
-      .then(response => {
-        console.log(response);
-        this.setState({
-          success: true,
-          fileLink: response
-        });
-      });
   }
 
   render() {
@@ -127,7 +111,7 @@ export default class Dashboard extends React.Component {
                     E-mail
                   </a>
                   <a
-                    onClick={this.savePdf}
+                    onClick={this.props.savePdf}
                     className="dropdown-item share-option"
                     tabIndex="0"
                   >
@@ -146,3 +130,10 @@ export default class Dashboard extends React.Component {
     );
   }
 }
+
+const Dashboard = connect(
+  null,
+  mapDispatchToProps
+)(ConnectedDashboard);
+
+export default Dashboard;

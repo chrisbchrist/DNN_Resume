@@ -131,7 +131,7 @@ class ConnectedEducationEditor extends React.Component {
                       <EditCard
                         key={index}
                         index={index}
-                        editMode={this.props.editMode}
+                        editMode={this.editMode}
                         collection={"education"}
                       >
                         <p>
