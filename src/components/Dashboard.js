@@ -1,5 +1,5 @@
 import React from "react";
-import Modal from "./CustomModal";
+import CustomModal from "./CustomModal";
 import EmailContent from "./EmailContent";
 import { connect } from "react-redux";
 import { savePdf } from "../actions/index";
@@ -123,9 +123,9 @@ class ConnectedDashboard extends React.Component {
             </li>
           </ul>
         </div>
-        <Modal show={this.state.modalShow} onClose={this.closeModal}>
+        <CustomModal show={this.state.modalShow} onClose={this.closeModal}>
           {this.state.email && <EmailContent onClose={this.closeModal} />}
-        </Modal>
+        </CustomModal>
       </nav>
     );
   }

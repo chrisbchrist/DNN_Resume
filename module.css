@@ -2064,14 +2064,15 @@ svg {
 .template-radio > input + img {
   /* IMAGE STYLES */
   transition: all 0.3s ease-in-out;
-  transform: scale(0.8) translate3d(0, 0, 0);
+  transform: scale(1) translate3d(0, 0, 0);
+  width: 200px;
   padding: 3px;
   border: 2px solid #ddd;
 }
 
 .template-radio > input + img + i {
   transition: all 0.3s ease-in-out;
-  color: #16a0db;
+  color: rgb(0, 123, 255);
   opacity: 0;
   transform: translate(-50%, -100%);
   font-size: 50px;
@@ -2082,9 +2083,9 @@ svg {
 
 .template-radio > input:checked + img {
   /* (RADIO CHECKED) IMAGE STYLES */
-  border: 2px solid #16a0db;
+  border: 2px solid rgb(0, 123, 255);
   border-radius: 3px;
-  transform: scale(1) translate3d(0, 0, 0);
+  transform: scale(1.1) translate3d(0, 0, 0);
 }
 
 .template-radio > input:checked + img + i {
@@ -2092,8 +2093,12 @@ svg {
 }
 
 .template-option-label {
-  color: #222;
+  color: #666;
   text-align: center;
+  margin-top: 15px;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  font-family: Open Sans Condensed;
 }
 
 #profile-image {

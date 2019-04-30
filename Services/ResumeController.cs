@@ -72,7 +72,7 @@ namespace DnnFree.Modules.SPA.React.Services
                 //CreatedOnDate = DateTime.UtcNow,
                 //LastModifiedOnDate = DateTime.UtcNow
             };
-            _repository.AddResume(t);
+            _repository.AddResume(res);
 
             return res;
         }
@@ -133,22 +133,59 @@ namespace DnnFree.Modules.SPA.React.Services
 
             var Renderer = new HtmlToPdf();
             var PDF = Renderer.RenderHtmlAsPdf(resumeHtml);
-            var stream = PDF.Stream;
+            MemoryStream stream = PDF.Stream;
 
             var result = new HttpResponseMessage(HttpStatusCode.OK)
             {
-                Content = new ByteArrayContent(stream.ToArray())
+                Content = new StreamContent(stream)
             };
             result.Content.Headers.ContentDisposition =
                 new ContentDispositionHeaderValue("attachment")
                 {
-                    FileName = "lmao.pdf"
+                    FileName = "WORK.pdf"
                 };
-            result.Content.Headers.ContentType =
-                new MediaTypeHeaderValue("application/octet-stream");
+           result.Content.Headers.ContentType =
+               new MediaTypeHeaderValue("application/octet-stream");
 
             return result;
         }
+
+        //[AllowAnonymous]
+        //[HttpPost]
+        //public HttpResponseMessage Stream([FromBody]Resume res)
+        //{
+        //    var resumeHtml = ResumeTemplate(res);
+
+        //    var Renderer = new HtmlToPdf();
+        //    var PDF = Renderer.RenderHtmlAsPdf(resumeHtml);
+        //    var stream = PDF.Stream;
+
+        //    var Response = new HttpResponse(HttpStatusCode.OK);
+
+        //    // or to convert an HTML string
+        //    //var PDF = Renderer.RenderHtmlAsPdf("<h1>Hello IronPdf</h1>");
+        //    Response.Clear();
+        //    Response.ContentType = "application/pdf";
+        //    Response.AddHeader("Content-Disposition", "attachment;filename=\"FileName.pdf\"");
+        //    // edit this line to display ion browser and change the file name
+        //    Response.BinaryWrite(PDF.BinaryData);
+        //    Response.Flush();
+        //    Response.End();
+
+        //    {
+        //        Content = new StreamContent(stream)
+        //    };
+        //    result.Content.Headers.ContentDisposition =
+        //        new ContentDispositionHeaderValue("attachment")
+        //        {
+        //            FileName = "WORK.pdf"
+        //        };
+        //    result.Content.Headers.ContentType =
+        //        new MediaTypeHeaderValue("application/octet-stream");
+
+        //    return result;
+        //}
+
 
         // GET: Resume
         [AllowAnonymous]
@@ -159,13 +196,13 @@ namespace DnnFree.Modules.SPA.React.Services
 
             var Renderer = new HtmlToPdf();
             var PDF = Renderer.RenderHtmlAsPdf(resumeHtml);
-            var uid = DateTime.Now.Ticks;
-            var OutputPath = $@"{PortalSettings.HomeDirectoryMapPath}PDF\{uid}.pdf";
+            //var uid = DateTime.Now.Ticks;
+            var OutputPath = $@"{PortalSettings.HomeDirectoryMapPath}PDF\FUCK.pdf";
             var success = PDF.TrySaveAs(OutputPath);
 
             if (success)
             {
-                return Request.CreateResponse(HttpStatusCode.OK, $@"https://portal.virtualcareersystem.com/DesktopModules/ResumeBuilder/API/Resume/Stream?uid={uid}");
+                return Request.CreateResponse(HttpStatusCode.OK, $@"https://portal.virtualcareersystem.com/DesktopModules/ResumeBuilder/API/Resume/Stream?uid=FUCK");
             }
 
             return Request.CreateResponse(HttpStatusCode.Ambiguous, $@"File save failure");

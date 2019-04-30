@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class Modal extends React.Component {
+export default class CustomModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -11,9 +11,7 @@ export default class Modal extends React.Component {
   }
 
   onClose(e) {
-    if (e.target === e.currentTarget) {
-      this.props.onClose && this.props.onClose(e);
-    }
+    this.props.onClose && this.props.onClose(e);
   }
 
   render() {

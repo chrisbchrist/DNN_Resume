@@ -1,6 +1,6 @@
 import React from "react";
 import ImageCropper from "./ImageCropper";
-import Modal from "./CustomModal";
+import CustomModal from "./CustomModal";
 
 export default class ImageInput extends React.Component {
   constructor(props) {
@@ -95,7 +95,7 @@ export default class ImageInput extends React.Component {
             />
           </form>
         </div>
-        <Modal
+        <CustomModal
           show={this.state.cropper}
           customWidth={750}
           onClose={this.closeCropper}
@@ -105,7 +105,7 @@ export default class ImageInput extends React.Component {
             src={this.state.imageUrl}
             closeCropper={this.closeCropper}
           />
-        </Modal>
+        </CustomModal>
       </div>
     );
   }

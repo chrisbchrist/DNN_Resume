@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { addItem, updateItem, reOrder } from "../../actions/index";
 import CardContainer from "../CardContainer";
 import EditCard from "../EditCard";
-import Modal from "../CustomModal";
+import CustomModal from "../CustomModal";
 import DescriptionWizard from "../DescriptionWizard";
 
 const mapStateToProps = state => {
@@ -411,7 +411,7 @@ class ConnectedExperienceEditor extends React.Component {
                   </div>
                 </div>
               )}
-              <Modal
+              <CustomModal
                 show={this.state.jobWizard}
                 onClose={this.toggleWizard}
                 customWidth={900}
@@ -420,7 +420,7 @@ class ConnectedExperienceEditor extends React.Component {
                   closeModal={this.toggleWizard}
                   setTasks={this.setTasks}
                 />
-              </Modal>
+              </CustomModal>
             </div>
           </div>
         </div>

@@ -3,6 +3,7 @@ import ExperienceEditor from "./ExperienceEditor";
 import EducationEditor from "./EducationEditor";
 import SkillsEditor from "./SkillsEditor";
 import GeneralEditor from "./GeneralEditor";
+import { Panel, PanelGroup } from "react-bootstrap";
 
 export default class Editors extends React.Component {
   constructor(props) {
@@ -27,31 +28,7 @@ export default class Editors extends React.Component {
 
         <EducationEditor preventSubmit={this.preventSubmit} />
 
-        <div className="resume-card card">
-          <div
-            className="resume-card-header card-header card--purple"
-            id="headingFour"
-            data-toggle="collapse"
-            data-target="#collapseFour"
-            aria-expanded="false"
-            aria-controls="collapseFour"
-          >
-            <h5 className="mb-0">
-              <i className="fas fa-code" />
-              Skills
-            </h5>
-          </div>
-          <div
-            id="collapseFour"
-            className="collapse"
-            aria-labelledby="headingFour"
-            data-parent="#accordion"
-          >
-            <div className="card-body">
-              <SkillsEditor preventSubmit={this.preventSubmit} />
-            </div>
-          </div>
-        </div>
+        <SkillsEditor preventSubmit={this.preventSubmit} />
       </div>
     );
   }

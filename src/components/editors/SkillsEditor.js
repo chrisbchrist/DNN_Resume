@@ -90,62 +90,89 @@ class ConnectedSkillsEditor extends React.Component {
 
   render() {
     return (
-      <div className="input-holder class">
-        {this.state.editIndex < 0 && this.props.skills.length > 0 && (
-          <h6 className="edit-label">Current Skills</h6>
-        )}
-        <div className="edit-card-wrapper">
-          {this.state.editIndex < 0 && (
-            <CardContainer
-              editMode={this.editMode}
-              onSortEnd={this.onSortEnd}
-              transitionDuration={400}
-              helperClass={"edit-card--dragging"}
-            >
-              {this.props.skills.map((skill, index) => (
-                <EditCard
-                  key={index}
-                  index={index}
-                  editMode={this.editMode}
-                  collection={"skills"}
-                >
-                  <p>
-                    <strong>{skill}</strong>
-                  </p>
-                </EditCard>
-              ))}
-            </CardContainer>
-          )}
+      <div className="resume-card card">
+        <div
+          className="resume-card-header card-header card--purple"
+          id="headingFour"
+          data-toggle="collapse"
+          data-target="#collapseFour"
+          aria-expanded="false"
+          aria-controls="collapseFour"
+        >
+          <h5 className="mb-0">
+            <i className="fas fa-code" />
+            Skills
+          </h5>
         </div>
-        <div className="form-group top-group">
-          <label className="label-hidden">Skill</label>
-          <input
-            className="form-control"
-            placeholder="Skill"
-            type="text"
-            value={this.state.skill}
-            onChange={this.handleChange}
-            onKeyDown={this.handleKeyDown}
-          />
-        </div>
-        <div className="add-btn-wrapper">
-          {this.state.editIndex < 0 && (
-            <div className="add-btn-wrapper">
-              <div className="add-btn" onClick={this.add}>
-                <i className="fas fa-plus" /> Add Skill
+        <div
+          id="collapseFour"
+          className="collapse"
+          aria-labelledby="headingFour"
+          data-parent="#accordion"
+        >
+          <div className="card-body">
+            <div className="input-holder class">
+              {this.state.editIndex < 0 && this.props.skills.length > 0 && (
+                <h6 className="edit-label">Current Skills</h6>
+              )}
+              <div className="edit-card-wrapper">
+                {this.state.editIndex < 0 && (
+                  <CardContainer
+                    editMode={this.editMode}
+                    onSortEnd={this.onSortEnd}
+                    transitionDuration={400}
+                    helperClass={"edit-card--dragging"}
+                  >
+                    {this.props.skills.map((skill, index) => (
+                      <EditCard
+                        key={index}
+                        index={index}
+                        editMode={this.editMode}
+                        collection={"skills"}
+                      >
+                        <p>
+                          <strong>{skill}</strong>
+                        </p>
+                      </EditCard>
+                    ))}
+                  </CardContainer>
+                )}
+              </div>
+              <div className="form-group top-group">
+                <label className="label-hidden">Skill</label>
+                <input
+                  className="form-control"
+                  placeholder="Skill"
+                  type="text"
+                  value={this.state.skill}
+                  onChange={this.handleChange}
+                  onKeyDown={this.handleKeyDown}
+                />
+              </div>
+              <div className="add-btn-wrapper">
+                {this.state.editIndex < 0 && (
+                  <div className="add-btn-wrapper">
+                    <div className="add-btn" onClick={this.add}>
+                      <i className="fas fa-plus" /> Add Skill
+                    </div>
+                  </div>
+                )}
+                {this.state.editIndex >= 0 && (
+                  <div className="edit-controls">
+                    <div
+                      className="edit-control cancel"
+                      onClick={this.cancelEdit}
+                    >
+                      <i className="fas fa-times" /> Cancel
+                    </div>
+                    <div className="edit-control done" onClick={this.update}>
+                      <i className="fas fa-check" /> Update
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
-          )}
-          {this.state.editIndex >= 0 && (
-            <div className="edit-controls">
-              <div className="edit-control cancel" onClick={this.cancelEdit}>
-                <i className="fas fa-times" /> Cancel
-              </div>
-              <div className="edit-control done" onClick={this.update}>
-                <i className="fas fa-check" /> Update
-              </div>
-            </div>
-          )}
+          </div>
         </div>
       </div>
     );

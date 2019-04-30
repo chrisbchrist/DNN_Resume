@@ -207,21 +207,22 @@ function rootReducer(state = initialState, action) {
     case SAVE_PDF: {
       let data = Object.assign({}, state);
       console.log(data);
-      fetch("/DesktopModules/ResumeBuilder/API/Resume/Stream", {
+      fetch("/DesktopModules/ResumeBuilder/API/Resume/Save", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify(data) // body data type must match "Content-Type" header
       })
-        .then(response => response.json()) // parses response to JSON
         .then(response => {
           console.log(response);
-          // this.setState({
-          //   success: true,
-          //   fileLink: response
-          // });
-        });
+          response.blob();
+        })
+        .then(blob => {
+          var downloadURL = window.URL.createObjectURL(blob);
+          window.open(downloadURL);
+        })
+        .catch(error => console.log(error));
       return state;
       break;
     }

@@ -1,5 +1,5 @@
 import React from "react";
-import Modal from "./CustomModal";
+import CustomModal from "./CustomModal";
 import { connect } from "react-redux";
 import { setSize, setColor, updateField } from "../actions/index";
 import Templates from "./templates/Templates";
@@ -209,9 +209,9 @@ class ConnectedWysiwyg extends React.Component {
             <i className="far fa-file-alt" /> Templates
           </span>
         </div>
-        <Modal show={this.state.showTemplates} onClose={this.toggleTemplates}>
+        <CustomModal show={this.state.showTemplates} onClose={this.toggleTemplates}>
           <Templates onClose={this.toggleTemplates} />
-        </Modal>
+        </CustomModal>
       </div>
     );
   }
