@@ -5,7 +5,8 @@ import {
   SET_SIZE,
   UPDATE_FIELD,
   REORDER,
-  SAVE_PDF
+  SAVE_PDF,
+  DB_SAVE
 } from "../actions/constants";
 
 const initialState = {
@@ -225,6 +226,32 @@ function rootReducer(state = initialState, action) {
         .catch(error => console.log(error));
       return state;
       break;
+    }
+    case DB_SAVE: {
+      let data = Object.assign({}, state);
+      data.id = -1;
+      var moduleId = parseInt("[ModuleContext:ModuleId]");
+      console.log(moduleId);
+      var service = {
+        path: "DnnFree.Modules.SPA.React",
+        framework: $.ServicesFramework(moduleId)
+      };
+      service.baseUrl =
+        service.framework.getServiceRoot(service.path) + "Resume/";
+      console.log(service);
+
+      fetch("/DesktopModules/ResumeBuilder/API/Resume/Upsert", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data) // body data type must match "Content-Type" header
+      })
+        .then(response => response.json())
+        .then(json => {
+          console.log(json);
+        })
+        .catch(error => console.log(error));
     }
     default: {
       return state;

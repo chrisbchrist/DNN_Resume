@@ -7,10 +7,9 @@ using System.Web;
 
 namespace DnnFree.Modules.SPA.React.Models
 {
-    [TableName("Resumes")]
+    [TableName("Resume_Builder_Resumes")]
     [PrimaryKey("ResumeId", AutoIncrement = true)]
-    [Scope("ModuleId")]
-    [Cacheable("Resumes", CacheItemPriority.Normal, 20)]
+    [Cacheable("Resume_Builder_Resumes", CacheItemPriority.Normal, 20)]
     public class Resume
     {
         public int ResumeId { get; set; }
@@ -37,5 +36,7 @@ namespace DnnFree.Modules.SPA.React.Models
         public int TextSize { get; set; }
         public int HeaderSize { get; set; }
         public string Template { get; set; }
+        public DateTime CreatedOnDate { get; set; }
+        public DateTime LastModifiedOnDate { get; set; }
     }
 }

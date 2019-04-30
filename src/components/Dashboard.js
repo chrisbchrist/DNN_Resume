@@ -2,11 +2,12 @@ import React from "react";
 import CustomModal from "./CustomModal";
 import EmailContent from "./EmailContent";
 import { connect } from "react-redux";
-import { savePdf } from "../actions/index";
+import { savePdf, dbSave } from "../actions/index";
 
 const mapDispatchToProps = dispatch => {
   return {
-    savePdf: () => dispatch(savePdf())
+    savePdf: () => dispatch(savePdf()),
+    dbSave: () => dispatch(dbSave())
   };
 };
 
@@ -117,6 +118,15 @@ class ConnectedDashboard extends React.Component {
                   >
                     <i className="fas fa-file-pdf" />
                     Download PDF
+                  </a>
+                  <a
+                    className="dropdown-item share-option"
+                    tabIndex="0"
+                    onKeyDown={this.handleKeyPress}
+                    onClick={this.props.dbSave}
+                  >
+                    <i className="fas fa-rocket" />
+                    Test
                   </a>
                 </div>
               </div>

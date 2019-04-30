@@ -7,7 +7,8 @@ import {
   DELETE_ITEM,
   UPDATE_ITEM,
   REORDER,
-  SAVE_PDF
+  SAVE_PDF,
+  DB_SAVE
 } from "./constants";
 
 export function addItem(collection, payload) {
@@ -44,4 +45,8 @@ export function updateField(field, value) {
 
 export function savePdf() {
   return { type: SAVE_PDF };
+}
+
+export function dbSave() {
+  return { type: DB_SAVE };
 }

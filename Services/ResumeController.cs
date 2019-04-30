@@ -32,7 +32,7 @@ namespace DnnFree.Modules.SPA.React.Services
         public ResumeController() : this(ResumeRepository.Instance) { }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public HttpResponseMessage Upsert(ResumeViewModel resume)
         {
             if (resume.Id > 0)
@@ -69,8 +69,8 @@ namespace DnnFree.Modules.SPA.React.Services
                 //ModuleId = ActiveModule.ModuleID,
                 //CreatedByUserId = UserInfo.UserID,
                 //LastModifiedByUserId = UserInfo.UserID,
-                //CreatedOnDate = DateTime.UtcNow,
-                //LastModifiedOnDate = DateTime.UtcNow
+                CreatedOnDate = DateTime.UtcNow,
+                LastModifiedOnDate = DateTime.UtcNow
             };
             _repository.AddResume(res);
 

@@ -1,7 +1,7 @@
 const path = require("path");
 
 module.exports = {
-  entry: "./src/index-dev.js",
+  entry: "./src/index.js",
   output: {
     path: path.join(__dirname, "/dist"),
     filename: "resume_builder_bundle.js"
