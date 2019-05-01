@@ -7,6 +7,8 @@ using DotNetNuke.Common;
 using DotNetNuke.Data;
 using DotNetNuke.Framework;
 using DnnFree.Modules.SPA.React.Models;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace DnnFree.Modules.SPA.React.Components
 {
@@ -20,13 +22,27 @@ namespace DnnFree.Modules.SPA.React.Components
             return () => new ResumeRepository();
         }
 
+        public SqlCommand CreateSqlCommand()
+        {
+            SqlCommand command = new SqlCommand();
+            command.CommandTimeout = 15;
+            command.CommandType = CommandType.Text;
+            return command;
+        }
+
         public int AddResume(Resume res)
         {
             Requires.NotNull(res);
             //Requires.PropertyNotNegative(t, "ModuleId");
+            var exp = res.Experience;
 
             using (IDataContext ctx = DataContext.Instance())
             {
+                var command = CreateSqlCommand();
+                var commandType = command.CommandType;
+
+                ctx.ExecuteQuery<Experience>(commandType, "SELECT * FROM Resume_Builder_Experience", )
+
                 var rep = ctx.GetRepository<Resume>();
                 rep.Insert(res);
             }

@@ -37,6 +37,30 @@ ALTER TABLE {databaseOwner}[{objectQualifier}Resume_Builder_Resumes] ADD CONSTRA
 GO
 
 
+IF EXISTS (SELECT * FROM sys.objects WHERE [object_id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Resume_Builder_Experience]') AND type in (N'U'))
+	DROP TABLE {databaseOwner}[{objectQualifier}Resume_Builder_Experience]
+GO
+
+CREATE TABLE {databaseOwner}{objectQualifier}Resume_Builder_Experience
+(
+	[ResumeId] INT NOT NULL,
+	[Title] NVARCHAR(50) NOT NULL,
+	[Company] NVARCHAR(50) NOT NULL,
+	[StartDate] NVARCHAR(30) NULL,
+	[EndDate] NVARCHAR(30) NULL,
+	[Location] NVARCHAR(50) NULL,
+	[Description] NVARCHAR(500) NULL,
+	[DescList] NVARCHAR(50) NULL,
+	[ListFormat] BIT NOT NULL,
+
+)
+GO
+
+
+ALTER TABLE {databaseOwner}[{objectQualifier}Resume_Builder_Experience] ADD CONSTRAINT FK_Experience_Resume FOREIGN KEY ([ResumeId]) REFERENCES {objectQualifier}Resume_Builder_Resumes([ResumeId])
+GO
+
+
 /************************************************************/
 /*****              SqlDataProvider                     *****/
 /************************************************************/

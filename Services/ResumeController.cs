@@ -64,7 +64,6 @@ namespace DnnFree.Modules.SPA.React.Services
                 TextSize = resume.TextSize,
                 HeaderSize = resume.HeaderSize,
                 Template = resume.Template,
-
                 //AssignedUserId = resume.AssignedUser,
                 //ModuleId = ActiveModule.ModuleID,
                 //CreatedByUserId = UserInfo.UserID,

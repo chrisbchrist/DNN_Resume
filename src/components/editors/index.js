@@ -3,7 +3,6 @@ import ExperienceEditor from "./ExperienceEditor";
 import EducationEditor from "./EducationEditor";
 import SkillsEditor from "./SkillsEditor";
 import GeneralEditor from "./GeneralEditor";
-import { Panel, PanelGroup } from "react-bootstrap";
 
 export default class Editors extends React.Component {
   constructor(props) {

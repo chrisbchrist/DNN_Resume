@@ -230,8 +230,6 @@ function rootReducer(state = initialState, action) {
     case DB_SAVE: {
       let data = Object.assign({}, state);
       data.id = -1;
-      var moduleId = parseInt("[ModuleContext:ModuleId]");
-      console.log(moduleId);
       var service = {
         path: "DnnFree.Modules.SPA.React",
         framework: $.ServicesFramework(moduleId)

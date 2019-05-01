@@ -13,6 +13,7 @@ namespace DnnFree.Modules.SPA.React.Models
     [Cacheable("Education", CacheItemPriority.Normal, 20)]
     public class Education
     {
+        public int ResumeId { get; set; }
         public string School { get; set; }
         public string Degree { get; set; }
         public string StartYear { get; set; }
